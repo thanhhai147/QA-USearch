@@ -4,7 +4,7 @@ from django.utils import timezone
 from rest_framework import status
 from ..models.session import Session
 from ..models.chat import Chat
-from ..AI.QALLM import infer
+# from ..AI.QALLM import infer
 
 class CreateChatAPIView(GenericAPIView):
     def post(self, request):
@@ -92,7 +92,8 @@ class CreateChatAPIView(GenericAPIView):
         
         try:
             session_instance = Session.objects.get(session_id=session_id)
-            bot_answer = infer(source=model, technique_prompt=prompting, context=session_instance.context, question=user_ask)
+            bot_answer = ''
+            # bot_answer = infer(source=model, technique_prompt=prompting, context=session_instance.context, question=user_ask)
             chat_instance = Chat(session_id=session_instance, model=model, prompting=prompting, chat_position=chat_position, user_ask=user_ask, bot_answer=bot_answer)
             chat_instance.save()
             session_instance.updated_at = timezone.now()
