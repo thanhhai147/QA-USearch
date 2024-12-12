@@ -1,0 +1,187 @@
+/* File style.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+*{  
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background:  rgba(42, 122, 233, 0.312);
+}
+.nav{
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+    background: linear-gradient(rgba(39,39,39, 0.6), transparent);
+    z-index: 100;
+}
+.nav-logo p{
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    font-weight: 600;
+}
+.nav-menu ul{
+    display: flex;
+}
+.nav-menu ul li{
+    list-style-type: none;
+}
+.nav-button .btn{
+    width: 130px;
+    height: 40px;
+    font-weight: 500;
+    background: rgba(254, 255, 255, 0.4);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s ease;
+}
+.btn:hover{
+    background: rgba(71, 148, 254, 0.4);
+}
+#registerBtn{
+    margin-left: 15px;
+}
+.btn.white-btn{
+    background: rgba(71, 148, 254, 0.4);
+}
+.btn.btn.white-btn:hover{
+    background: rgba(71, 148, 254, 0.4);
+}
+.form-box{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 512px;
+    height: 620px;
+    overflow: hidden;
+    z-index: 2;
+}
+.login-container, .register-container{
+    position: absolute;
+    left: 4px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    transition: .5s ease-in-out;
+}
+.top span{
+    color: #ffffff;
+    font-size: small;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+header{
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    padding: 10px 0 30px 0;
+}.input-field {
+    font-size: 15px;
+    background: rgba(255, 253, 253, 0.2);
+    color: #000 !important; /* Đảm bảo màu chữ luôn là đen */
+    height: 50px;
+    width: 100%;
+    padding: 0 10px 0 45px;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    transition: .2s ease;
+}
+
+/* Đảm bảo màu placeholder */
+.input-field::placeholder {
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.input-box i{
+    position: relative;
+    top: -35px;
+    left: 17px;
+    color: #ffffff;
+}
+.submit{
+    font-size: 15px;
+    font-weight: 500;
+    color: black;
+    height: 45px;
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+.submit:hover{
+    background: rgba(130, 180, 250, 0.4);
+    box-shadow: 1px 4px 4px 1px rgba(0, 0, 0, 0.2);
+}
+    
+    
+.input-box {
+    margin-bottom: 20px; 
+    position: relative; 
+}
+
+header {
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    padding: 10px 0 30px 0; 
+    margin-bottom: 20px;    
+}
+.message-box {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #fff;
+  z-index: 1000;
+}
+
+.message-box.success {
+  background-color: #4caf50; /* Màu xanh cho thành công */
+}
+
+.message-box.error {
+    background-color: #f44336; /* Màu đỏ cho lỗi */
+}
+
+.message-box2 {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff;
+    z-index: 1000;
+  }
+  
+  .message-box2.error {
+      background-color: #4caf50; 
+  }
