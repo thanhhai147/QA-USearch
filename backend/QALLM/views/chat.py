@@ -12,8 +12,6 @@ class CreateChatAPIView(GenericAPIView):
         try:
             session_id = data['session_id']
             user_ask = data['user_ask']
-            model = data['model']
-            prompting = data['prompting']
         except:
             return Response(
                 {
@@ -36,24 +34,6 @@ class CreateChatAPIView(GenericAPIView):
                 {
                     "success": False,
                     "message": "Câu hỏi không hợp lệ"
-                }, 
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        
-        if not model:
-            return Response(
-                {
-                    "success": False,
-                    "message": "Mô hình không hợp lệ"
-                }, 
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        
-        if not prompting:
-            return Response(
-                {
-                    "success": False,
-                    "message": "Prompting không hợp lệ"
                 }, 
                 status=status.HTTP_400_BAD_REQUEST
             )
@@ -94,7 +74,7 @@ class CreateChatAPIView(GenericAPIView):
             session_instance = Session.objects.get(session_id=session_id)
             bot_answer = ''
             # bot_answer = infer(source=model, technique_prompt=prompting, context=session_instance.context, question=user_ask)
-            chat_instance = Chat(session_id=session_instance, model=model, prompting=prompting, chat_position=chat_position, user_ask=user_ask, bot_answer=bot_answer)
+            chat_instance = Chat(session_id=session_instance, chat_position=chat_position, user_ask=user_ask, bot_answer=bot_answer)
             chat_instance.save()
             session_instance.updated_at = timezone.now()
             session_instance.save()
@@ -115,8 +95,6 @@ class CreateChatAPIView(GenericAPIView):
                     "chat_id": chat_instance.chat_id,
                     "session_id": session_id,
                     "chat_position": chat_position,
-                    "model": model,
-                    "prompting": prompting,
                     "user_ask": user_ask,
                     "bot_answer": bot_answer
                 }

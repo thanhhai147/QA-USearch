@@ -1,5 +1,5 @@
 class ChatAPI {
-    static createChat(sessionId, model, prompting, userAsk) {
+    static createChat(sessionId, userAsk) {
         return fetch(
             `http://localhost:8000/create-chat`, 
             {
@@ -10,8 +10,6 @@ class ChatAPI {
                 },
                 body: JSON.stringify({
                     session_id: sessionId,
-                    model: model,
-                    prompting: prompting,
                     user_ask: userAsk
                 })
             }

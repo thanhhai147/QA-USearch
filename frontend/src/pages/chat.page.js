@@ -9,19 +9,6 @@ import SessionAPI from "../API/session"
 
 import "../assets/css/ChatPage.css"
 
-const MODELS = {
-    'Gemini 1.5 pro': 'gemini-1.5-pro',
-    'GPT 4.o mini': 'gpt-4.o-mini',
-    'Llama 3.2 3B instruct': 'llama-3.2-3b-instruct'
-}
-
-const PROMPTING = {
-    'Zero shot': 'zero-shot',
-    'One shot': 'one-shot',
-    'Few shot': 'few-shot',
-    'Chain-of-thought': 'chain-of-thought'
-}
-
 export default function ChatPage() {
     const [isSidebarVisible, setSidebarVisible] = useState(true)
     const [sessionHistory, setSessionHistory] = useState([])
@@ -32,8 +19,6 @@ export default function ChatPage() {
     const [editingSessionId, setEditingSessionId] = useState(null)
     const [sessionName, setSessionName] = useState("")
     const [context, setContext] = useState("")
-    const [model, setModel] = useState(null)
-    const [prompt, setPrompt] = useState(null)
     const [message, setMessage] = useState(null) // State để lưu thông báo
     const [isSuccess, setIsSuccess] = useState(false) // State để xác định loại thông báo
     const [isContextModalOpen, setIsContextModalOpen] = useState(false)
@@ -131,8 +116,6 @@ export default function ChatPage() {
                     setChatHistory(chats.map(chat => ({
                         sessionId: chat.session_id,
                         chatId: chat.chat_id,
-                        model: chat.model,
-                        prompting: chat.prompting,
                         chatPosition: chat.chat_position,
                         userAsk: chat.user_ask,
                         botAnswer: chat.bot_answer
@@ -203,7 +186,7 @@ export default function ChatPage() {
     const handleCreateChat = () => {
         if (currentChat.trim()) {   
             setIsLoading(true)
-            ChatAPI.createChat(currentSessionId, MODELS[model], PROMPTING[prompt], currentChat.trim())
+            ChatAPI.createChat(currentSessionId, currentChat.trim())
             .then(response => response.json())
             .then(data => {
                 console.log(data)
@@ -309,36 +292,6 @@ export default function ChatPage() {
         </Menu>
     )
 
-    const modelMenu = (
-        <Menu>
-            <Menu.Item key="1" primary onClick={() => setModel('Gemini 1.5 pro')}>
-                Gemini 1.5 pro
-            </Menu.Item>
-            <Menu.Item key="2" primary onClick={() => setModel('GPT 4.o mini')}>
-                GPT 4.o mini
-            </Menu.Item>
-            <Menu.Item key="3" primary onClick={() => setModel('Llama 3.2 3B instruct')}>
-                Llama 3.2 3B instruct
-            </Menu.Item>
-        </Menu>
-    )
-    const promptingMenu = (
-        <Menu>
-            <Menu.Item key="1" primary onClick={() => setPrompt('Zero shot')}>
-                Zero Shot
-            </Menu.Item>
-            <Menu.Item key="2" primary onClick={() => setPrompt('One shot')}>
-                One Shot
-            </Menu.Item>
-            <Menu.Item key="3" primary onClick={() => setPrompt('Few shot')}>
-                Few Shot
-            </Menu.Item>
-            <Menu.Item key="4" primary onClick={() => setPrompt('Chain-of-thought')}>
-                Chain-of-thought
-            </Menu.Item>
-        </Menu>
-    )
-
     return (
         <div className="chat-page">
             {isSidebarVisible && (
@@ -398,25 +351,6 @@ export default function ChatPage() {
                             disabled={isLoading}
                         >
                         </Button>
-                    </div>
-
-                    <div className="header-center">
-                        <Dropdown 
-                            overlay={modelMenu}
-                            disabled={isLoading}
-                        >
-                            <Button className="select-model">
-                                {model ? model : "Chọn mô hình"} <DownOutlined />
-                            </Button>
-                        </Dropdown>
-                        <Dropdown 
-                            overlay={promptingMenu}
-                            disabled={isLoading}
-                        >
-                            <Button className="select-prompting">
-                                {prompt ? prompt : "Chọn cách prompting"} <DownOutlined />
-                            </Button>
-                        </Dropdown>
                     </div>
 
                         <Dropdown 
