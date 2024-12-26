@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('QALLM.urls.user')),
     path('', include('QALLM.urls.session')),
     path('', include('QALLM.urls.chat')),
+    path('', include('QALLM.urls.rag')),
 ]

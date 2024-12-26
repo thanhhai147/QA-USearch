@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"
-import { Button, Input, Menu, Dropdown, Popconfirm, message, Modal, Spin } from "antd"
-import { MenuOutlined, UserOutlined, DownOutlined, MinusCircleOutlined, EditOutlined, FormOutlined, TruckFilled } from "@ant-design/icons"
+import { Button, Input, Menu, Dropdown, Popconfirm, message, Modal, Spin, Upload, Icon } from "antd"
+import { MenuOutlined, UserOutlined, DownOutlined, MinusCircleOutlined, EditOutlined, FormOutlined, TruckFilled, UploadOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from '../context/authentication.context'
 import UserAPI from "../API/user"
 import ChatAPI from "../API/chat"
+import RAGAPI from "../API/rag"
 import SessionAPI from "../API/session"
-
 import "../assets/css/ChatPage.css"
 
 export default function ChatPage() {
@@ -23,6 +23,9 @@ export default function ChatPage() {
     const [isSuccess, setIsSuccess] = useState(false) // State để xác định loại thông báo
     const [isContextModalOpen, setIsContextModalOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [uploadedFiles, setUploadedFiles] = useState([]);
+    const [metadata, setMetadata] = useState([]);
     const { username, logout , userId } = useAuth()
     const navigate = useNavigate()
     const { TextArea } = Input
@@ -184,9 +187,10 @@ export default function ChatPage() {
 
 
     const handleCreateChat = () => {
+               
         if (currentChat.trim()) {   
             setIsLoading(true)
-            ChatAPI.createChat(currentSessionId, currentChat.trim())
+            RAGAPI.querySearch(currentChat.trim()) 
             .then(response => response.json())
             .then(data => {
                 console.log(data)
@@ -291,9 +295,68 @@ export default function ChatPage() {
             </Menu.Item>
         </Menu>
     )
+    
 
+    const handleOpenModal = () => {
+        RAGAPI.getUploadedFiles(uploadedFiles) 
+        .then((response) => response.json())
+        .then((data) => {
+            setMetadata(data.data);
+        })
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleFiles = (file) => {
+        const isPDF = file.type === 'application/pdf';
+        if (!isPDF) {
+            console.log('You can only upload PDF files!');
+            return Upload.LIST_IGNORE; // Ngăn file không hợp lệ vào danh sách
+        }
+
+        const isDuplicate = uploadedFiles.some((uploadedFile) => uploadedFile.name === file.name);
+        if (isDuplicate) {
+            console.log('This file has already been uploaded!');
+            return Upload.LIST_IGNORE; // Ngăn file trùng lặp vào danh sách
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const fileData = {
+                name: file.name,
+                content: e.target.result, // Lưu Base64 hoặc URL tạm
+            };
+            setUploadedFiles((prevFiles) => [...prevFiles, fileData]);
+        };
+        reader.readAsDataURL(file);
+        return false; // Ngăn không tải lên server
+    };
+    const handleAddFiles = () => {
+        RAGAPI.addFilesToUSearch(uploadedFiles) 
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                setMessage(data.message) // Hiển thị thông báo thành công
+                setIsSuccess(true)
+            } else {
+                setMessage(data.message)
+                setIsSuccess(false)
+            }
+        })
+        .catch((e) => {
+            setMessage("Lỗi: " + e.message)
+            setIsSuccess(false)
+        })
+        .finally(() => {
+            setIsLoading(false)
+        })
+    }
     return (
         <div className="chat-page">
+           
             {isSidebarVisible && (
                 <div className="sidebar">
                     <div key={'his-chat'} className="his-chat">Lịch sử trò chuyện</div>
@@ -351,6 +414,46 @@ export default function ChatPage() {
                             disabled={isLoading}
                         >
                         </Button>
+                        <Button icon={<UploadOutlined />} onClick={handleOpenModal}>
+                        </Button>
+
+                        <Modal
+                            title="Upload PDF Files"
+                            open={isModalOpen}
+                            onCancel={handleCloseModal}
+                            footer={[
+                                <Button key="close" onClick={handleCloseModal}>
+                                    Close
+                                </Button>,
+                            ]}
+                        >
+                            <Upload
+                                accept=".pdf"
+                                multiple
+                                beforeUpload={handleFiles}
+                                onRemove={(file) => {
+                                    setUploadedFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+                                }}
+                                showUploadList={true}
+                            >
+                                <Button icon={<UploadOutlined />}>
+                                    Select Files
+                                </Button>
+                            </Upload>
+                            
+                            <div style={{ marginTop: 20 }}>
+                                <Button onClick={handleAddFiles}>
+                                    Add to DB
+                                </Button>
+                                <h4>Uploaded Files:</h4>
+                                <ul>
+                                    {metadata.map((file, index) => (
+                                        <li key={index}>{file}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </Modal>
+                        
                     </div>
 
                         <Dropdown 
