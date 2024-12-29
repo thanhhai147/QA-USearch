@@ -1,5 +1,5 @@
 class SessionAPI {
-    static createSession(userId, sessionName, context) {
+    static createSession(userId, sessionName) {
         return fetch(
             `http://localhost:8000/create-session`, 
             {
@@ -10,8 +10,7 @@ class SessionAPI {
                 },
                 body: JSON.stringify({
                     user_id: userId,
-                    session_name: sessionName,
-                    context: context
+                    session_name: sessionName
                 })
             }
         )

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { Button, Input, Menu, Dropdown, Popconfirm, message, Modal, Spin, Upload, Icon } from "antd"
-import { MenuOutlined, UserOutlined, DownOutlined, MinusCircleOutlined, EditOutlined, FormOutlined, TruckFilled, UploadOutlined } from "@ant-design/icons"
+import { Button, Input, Menu, Dropdown, Popconfirm, Modal, Spin, Upload, Tag } from "antd"
+import { MenuOutlined, UserOutlined, DownOutlined, MinusCircleOutlined, EditOutlined, FormOutlined, UploadOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from '../context/authentication.context'
 import UserAPI from "../API/user"
@@ -8,6 +8,8 @@ import ChatAPI from "../API/chat"
 import RAGAPI from "../API/rag"
 import SessionAPI from "../API/session"
 import "../assets/css/ChatPage.css"
+
+let flag = false
 
 export default function ChatPage() {
     const [isSidebarVisible, setSidebarVisible] = useState(true)
@@ -17,18 +19,19 @@ export default function ChatPage() {
     const [currentChat, setCurrentChat] = useState("")
     const [isFirstMessageSent, setIsFirstMessageSent] = useState(false)
     const [editingSessionId, setEditingSessionId] = useState(null)
-    const [sessionName, setSessionName] = useState("")
-    const [context, setContext] = useState("")
+    const [sessionName, setSessionName] = useState("Trò chuyện mới")
+    // const [context, setContext] = useState("")
     const [message, setMessage] = useState(null) // State để lưu thông báo
     const [isSuccess, setIsSuccess] = useState(false) // State để xác định loại thông báo
-    const [isContextModalOpen, setIsContextModalOpen] = useState(false)
+    // const [isContextModalOpen, setIsContextModalOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false)
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [metadata, setMetadata] = useState([]);
     const { username, logout , userId } = useAuth()
     const navigate = useNavigate()
-    const { TextArea } = Input
+    // const { TextArea } = Input
 
     useEffect(() => {
         handleLoadSessionHistory()
@@ -89,9 +92,9 @@ export default function ChatPage() {
                         return updatedSessionHistory
                     })
                 }
-
-                if (sessions.length === 0) {
-                    setIsContextModalOpen(true)
+                if (sessions.length === 0 && !flag) {
+                    handleCreateSession()
+                    // setIsContextModalOpen(true)
                 }
             } else {
                 setMessage("Lỗi khi truy xuất phiên: " + data.message)
@@ -104,6 +107,7 @@ export default function ChatPage() {
         })
         .finally(() => {
             setIsLoading(false)
+            flag = true
         })
     }
 
@@ -140,7 +144,7 @@ export default function ChatPage() {
 
     const handleCreateSession = () => {
         setIsLoading(true)
-        SessionAPI.createSession(userId, sessionName, context) 
+        SessionAPI.createSession(userId, sessionName) 
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -156,7 +160,7 @@ export default function ChatPage() {
             setIsSuccess(false)
         })
         .finally(() => {
-            setIsContextModalOpen(false)
+            // setIsContextModalOpen(false)
             setIsLoading(false)
         })
     }
@@ -301,6 +305,7 @@ export default function ChatPage() {
         RAGAPI.getUploadedFiles(uploadedFiles) 
         .then((response) => response.json())
         .then((data) => {
+            console.log(data)
             setMetadata(data.data);
             console.log(data.data);
         })
@@ -411,7 +416,8 @@ export default function ChatPage() {
                         <Button
                             className="new-chat"
                             icon={<FormOutlined />}
-                            onClick={() => setIsContextModalOpen(true)}
+                            // onClick={() => setIsContextModalOpen(true)}
+                            onClick={() => handleCreateSession()}
                             disabled={isLoading}
                         >
                         </Button>
@@ -449,7 +455,7 @@ export default function ChatPage() {
                                 <h4>Uploaded Files:</h4>
                                 <ul>
                                     {metadata.map((file, index) => (
-                                        <li key={index}>{file?.file_name} {file?.created_at}</li>
+                                        <li key={index}>{file}</li>
                                     ))}
                                 </ul>
                             </div>
@@ -515,13 +521,12 @@ export default function ChatPage() {
                 </div>
             </div>
 
-            <Modal
+            {/* <Modal
                 className="context-modal"
                 open={isContextModalOpen}
                 title="Tạo cuộc trò chuyện mới"
                 onCancel={() => {
                     setSessionName(null)
-                    setContext(null)
                     setIsContextModalOpen(false)
                 }}
                 footer={() => (
@@ -547,6 +552,54 @@ export default function ChatPage() {
                     rows={20}
                     disabled={isLoading}
                 />
+            </Modal> */}
+
+            <Modal
+                title="Tải File PDF"
+                open={isAddModalOpen}
+                onCancel={handleCloseModal}
+                footer={[
+                    <Button key="close" onClick={handleCloseModal}>
+                        Hủy
+                    </Button>
+                ]}
+            >
+                <Upload
+                    accept=".pdf"
+                    multiple
+                    beforeUpload={handleFiles}
+                    onRemove={(file) => {
+                        setUploadedFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+                    }}
+                    showUploadList={true}
+                >
+                    <Button icon={<UploadOutlined />}>
+                        Chọn File
+                    </Button>
+                </Upload>
+                
+                <div style={{ marginTop: 20 }}>
+                    <Button onClick={handleAddFiles}>
+                        Thêm vào kho lưu trữ
+                    </Button>
+                </div>
+            </Modal>
+
+            <Modal
+                title="Kho Lưu Trữ"
+                open={isModalOpen}
+                onCancel={handleCloseModal}
+                footer={[
+                    <Button key="close" onClick={handleCloseModal}>
+                        Hủy
+                    </Button>
+                ]}
+            >
+                {
+                    metadata.map((file, index) => (
+                        <Tag className="mb-2 pdf-tag" key={index}>{file}</Tag>
+                    ))
+                }
             </Modal>
 
             {

@@ -12,7 +12,6 @@ class CreateSessionAPIView(GenericAPIView):
         try:
             user_id = data['user_id']
             session_name = data['session_name']
-            context = data['context']
         except:
             return Response(
                 {
@@ -26,15 +25,6 @@ class CreateSessionAPIView(GenericAPIView):
                 {
                     "success": False,
                     "message": "Mã người dùng không hợp lệ"
-                }, 
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        if not context:
-            return Response(
-                {
-                    "success": False,
-                    "message": "Nội dung ngữ cảnh không hợp lệ"
                 }, 
                 status=status.HTTP_400_BAD_REQUEST
             )
@@ -59,7 +49,7 @@ class CreateSessionAPIView(GenericAPIView):
             )
         
         try:
-            session_instance = Session(user_id=user_instance, session_name=session_name, context=context)
+            session_instance = Session(user_id=user_instance, session_name=session_name)
             session_instance.save()
         except:
             return Response(
@@ -77,8 +67,7 @@ class CreateSessionAPIView(GenericAPIView):
                 "data": {
                     "user_id": user_id,
                     "session_id": session_instance.session_id,
-                    "session_name": session_instance.session_name,
-                    "context": session_instance.context
+                    "session_name": session_instance.session_name
                 }
             }, 
             status=status.HTTP_200_OK
@@ -147,7 +136,6 @@ class GetSessionByUserIdAPIView(GenericAPIView):
                             {
                                 "session_id": session.session_id,
                                 "session_name": session.session_name,
-                                "context": session.context,
                                 "updated_at": session.updated_at
                             } for session in session_instances
                         ],
