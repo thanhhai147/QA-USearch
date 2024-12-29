@@ -1,1 +1,660 @@
-{"docstore": [{"metadata": {"id": "multi-task learning.pdf:1:0"}, "page_content": "AI VIET NAM \u2013 AIO COURSE 2023\nProject: Multi-Task Learning\nQuoc-Thai Nguyen v\u00e0 Quang-Vinh Dinh\nNg\u00e0y 30 th\u00e1ng 4 n\u0103m 2024\nPh\u1ea7n I. Gi\u1edbi thi\u1ec7u\nH\u00ecnh 1: V\u00ed d\u1ee5v\u1ec1m\u00f4 h\u00ecnh h\u1ecdc \u0111a t\u00e1c v\u1ee5cho b\u00e0i to\u00e1n image semantic segmentation v\u00e0 depth-image\nprediction\nH\u00ecnh 2: C\u00e1c ph\u01b0\u01a1ng ph\u00e1p hu\u1ea5n luy\u1ec7n m\u00f4 h\u00ecnh h\u1ecdc \u0111a t\u00e1c v\u1ee5.", "id": "0"}, {"metadata": {"id": "multi-task learning.pdf:1:1"}, "page_content": "1\n", "id": "1"}, {"metadata": {"id": "multi-task learning.pdf:2:0"}, "page_content": "AI VIETNAM\naivietnam.edu.vn\nM\u00f4 h\u00ecnh h\u1ecdc \u0111a t\u00e1c v\u1ee5(Multi-Task Learning) l\u00e0 ph\u01b0\u01a1ng ph\u00e1p hu\u1ea5n luy\u1ec7n cho m\u1ed9t m\u00f4 h\u00ecnh\nnh\u01b0ng c\u00f3 th\u1ec3gi\u1ea3i quy\u1ebft cho nhi\u1ec1u b\u00e0i to\u00e1n kh\u00e1c nhau.", "id": "2"}, {"metadata": {"id": "multi-task learning.pdf:2:1"}, "page_content": "V\u00ed d\u1ee5, ch\u00fang ta hu\u1ea5n luy\u1ec7n m\u1ed9t m\u00f4 h\u00ecnh v\u1edbi\n\u0111\u1ea7u v\u00e0o l\u00e0 m\u1ed9t h\u00ecnh \u1ea3nh v\u00e0 \u0111\u1ea7u ra gi\u1ea3i quy\u1ebft cho hai b\u00e0i to\u00e1n kh\u00e1c nhau nh\u01b0: semantic segmentation\nv\u00e0 depth-image prediction \u0111\u01b0\u1ee3c m\u00f4 t\u1ea3nh\u01b0 H\u00ecnh 1.", "id": "3"}, {"metadata": {"id": "multi-task learning.pdf:2:2"}, "page_content": "C\u00e1c ph\u01b0\u01a1ng ph\u00e1p hu\u1ea5n luy\u1ec7n c\u00e1c m\u00f4 h\u00ecnh MTL c\u00f3 th\u1ec3\u0111\u01b0\u1ee3c chia th\u00e0nh 2 nh\u00f3m:\n1.", "id": "4"}, {"metadata": {"id": "multi-task learning.pdf:2:3"}, "page_content": "Deep Multi-Task Architectures.", "id": "5"}, {"metadata": {"id": "multi-task learning.pdf:2:4"}, "page_content": "Bao g\u1ed3m c\u00e1c ph\u01b0\u01a1ng ph\u00e1p t\u1eadp trung v\u00e0o x\u00e2y d\u1ef1ng c\u00e1c m\u00f4 h\u00ecnh\nchung \u0111\u1ec3gi\u1ea3i quy\u1ebft c\u00e1c b\u00e0i to\u00e1n kh\u00e1c nhau.", "id": "6"}, {"metadata": {"id": "multi-task learning.pdf:2:5"}, "page_content": "Trong \u0111\u00f3 g\u1ed3m 2 th\u00e0nh ph\u1ea7n ch\u00ednh: th\u00e0nh ph\u1ea7n th\u1ee9\nnh\u1ea5t bao g\u1ed3m c\u00e1c layer chung ho\u1eb7c chia s\u1ebbtr\u1ecdng s\u1ed1\u0111\u1ec3h\u1ecdc c\u00e1c \u0111\u1eb7c tr\u01b0ng th\u01b0\u1eddng g\u1ecdi l\u00e0 shared-\nencoder; th\u00e0nh ph\u1ea7n th\u1ee9hai bao g\u1ed3m c\u00e1c layer ri\u00eang \u0111\u1ec3h\u1ecdc c\u00e1c \u0111\u1eb7c tr\u01b0ng \u0111\u1ec3t\u1ed1i \u01b0u cho t\u1eebng b\u00e0i\nto\u00e1n ri\u00eang th\u01b0\u1eddng \u0111\u01b0\u1ee3c g\u1ecdi l\u00e0 task-specific layer.", "id": "7"}, {"metadata": {"id": "multi-task learning.pdf:2:6"}, "page_content": "2.", "id": "8"}, {"metadata": {"id": "multi-task learning.pdf:2:7"}, "page_content": "Optimization Strategy.", "id": "9"}, {"metadata": {"id": "multi-task learning.pdf:2:8"}, "page_content": "V\u1edbi m\u1ed7i b\u00e0i to\u00e1n s\u1ebdc\u00f3 h\u00e0m loss \u0111\u00e1nh gi\u00e1 kh\u00e1c nhau.", "id": "10"}, {"metadata": {"id": "multi-task learning.pdf:2:9"}, "page_content": "Trong ph\u1ea7n n\u00e0y\ns\u1ebdt\u1eadp trung x\u00e2y d\u1ef1ng c\u00e1c thu\u1eadt to\u00e1n t\u1ed1i \u01b0u trong qu\u00e1 tr\u00ecnh hu\u1ea5n luy\u1ec7n v\u00e0 c\u1eadp nh\u1eadt tr\u1ecdng s\u1ed1.", "id": "11"}, {"metadata": {"id": "multi-task learning.pdf:2:10"}, "page_content": "\u0110i\u1ec3n h\u00ecnh trong \u0111\u00f3 l\u00e0 c\u00e1c ph\u01b0\u01a1ng ph\u00e1p c\u00e2n b\u1eb1ng tr\u1ecdng s\u1ed1khi t\u1ed5ng h\u1ee3p h\u00e0m loss, nh\u01b0 gradient\nnormalization, uncertainy weighting,... Trong ph\u1ea7n n\u00e0y \u0111\u1ec3b\u01b0\u1edbc \u0111\u1ea7u hi\u1ec3u r\u00f5 v\u1ec1c\u00e1c ph\u01b0\u01a1ng ph\u00e1p hu\u1ea5n luy\u1ec7n m\u00f4 h\u00ecnh MTL, ch\u00fang ta s\u1ebdtri\u1ec3n\nkhai m\u00f4 h\u00ecnh MTL c\u01a1 b\u1ea3n t\u1eadp trung v\u00e0o tinh ch\u1ec9nh ph\u1ea7n encoder l\u00e0 hard parameter sharing model.", "id": "12"}, {"metadata": {"id": "multi-task learning.pdf:2:11"}, "page_content": "2\n", "id": "13"}, {"metadata": {"id": "multi-task learning.pdf:3:0"}, "page_content": "AI VIETNAM\naivietnam.edu.vn\nPh\u1ea7n II. Multi-Task Learning for Com-\nputer Vision\nHai ph\u01b0\u01a1ng ph\u00e1p ch\u00ednh bao g\u1ed3m: hard parameter sharing \u0111\u01b0\u1ee3c m\u00f4 t\u1ea3trong h\u00ecnh 3 v\u00e0 soft parameter\nsharing \u0111\u01b0\u1ee3c m\u00f4 t\u1ea3trong h\u00ecnh 4.", "id": "14"}, {"metadata": {"id": "multi-task learning.pdf:3:1"}, "page_content": "H\u00ecnh 3: Hard parameter sharing.", "id": "15"}, {"metadata": {"id": "multi-task learning.pdf:3:2"}, "page_content": "H\u00ecnh 4: Soft parameter sharing.", "id": "16"}, {"metadata": {"id": "multi-task learning.pdf:3:3"}, "page_content": "Hard parameter sharing bao g\u1ed3m c\u00e1c layer d\u00f9ng chung cho t\u1ea5t c\u1ea3c\u00e1c task, shared layers.", "id": "17"}, {"metadata": {"id": "multi-task learning.pdf:3:4"}, "page_content": "Sau c\u00e1c\nshared layers bao g\u1ed3m c\u00e1c task-specific layers cho c\u00e1c task kh\u00e1c nhau.", "id": "18"}, {"metadata": {"id": "multi-task learning.pdf:3:5"}, "page_content": "Soft parameter sharing bao g\u1ed3m c\u00e1c layer d\u00f9ng ri\u00eang cho c\u00e1c task kh\u00e1c nhau.", "id": "19"}, {"metadata": {"id": "multi-task learning.pdf:3:6"}, "page_content": "Tuy nhi\u00ean, thay v\u00ec \u1edf\nc\u00e1c layer \u0111\u1ea7u ti\u00ean c\u1ee7a c\u00e1c m\u00f4 h\u00ecnh s\u1ebdho\u1ea1t \u0111\u1ed9ng ri\u00eang l\u1ebdcho c\u00e1c task th\u00ec s\u1ebdc\u00f3 c\u00e1c k\u1ebft n\u1ed1t v\u1edbi \u0111\u1ebfn task\nkh\u00e1c.", "id": "20"}, {"metadata": {"id": "multi-task learning.pdf:3:7"}, "page_content": "C\u00e1c k\u1ebft n\u1ed1i c\u00f3 th\u1ec3l\u00e0 tuy\u1ebfn t\u00ednh ho\u1eb7c s\u1eedd\u1ee5ng c\u00e1c h\u00e0m k\u00edch ho\u1ea1t \u0111\u1ec3k\u1ebft n\u1ed1i c\u00e1c layer kh\u00e1c nhau.", "id": "21"}, {"metadata": {"id": "multi-task learning.pdf:3:8"}, "page_content": "Trong ph\u1ea7n n\u00e0y ch\u00fang ta s\u1ebdhu\u1ea5n luy\u1ec7n hard parameter sharing model tr\u00ean b\u1ed9d\u1eefli\u1ec7u NYUD-V2\ncho hai b\u00e0i to\u00e1n semantic segmentation v\u00e0 depth-image prediction.", "id": "22"}, {"metadata": {"id": "multi-task learning.pdf:3:9"}, "page_content": "B\u1ed9d\u1eefli\u1ec7u sau khi th\u1ef1c hi\u1ec7n c\u00e1c\nb\u01b0\u1edbc ti\u1ec1n x\u1eedl\u00fd nh\u01b0 chuy\u1ec3n sang tensor,...", "id": "23"}, {"metadata": {"id": "multi-task learning.pdf:3:10"}, "page_content": "c\u00f3 th\u1ec3\u0111\u01b0\u1ee3c t\u1ea3i v\u1ec1t\u1ea1i \u0111\u00e2y.", "id": "24"}, {"metadata": {"id": "multi-task learning.pdf:3:11"}, "page_content": "3\n", "id": "25"}, {"metadata": {"id": "multi-task learning.pdf:4:0"}, "page_content": "AI VIETNAM\naivietnam.edu.vn\n1.1.", "id": "26"}, {"metadata": {"id": "multi-task learning.pdf:4:1"}, "page_content": "Dataset\n1 import os\n2 import\ntorch\n3 import\nfnmatch\n4 import\nnumpy as np\n5 from\ntorch.utils.data\nimport\nDataLoader\n6\n7 class\nNYUv2(torch.utils.data.dataset.Dataset):\n8\ndef\n__init__(self , root , train=True):\n9\nself.train = train\n10\nself.root = os.path.expanduser(root)\n11\n12\n# read the data file\n13\nif train:\n14\nself.data_path = root + \u2019/train \u2019\n15\nelse:\n16\nself.data_path = root + \u2019/val\u2019\n17\n18\n# calculate\ndata\nlength\n19\nself.data_len = len(fnmatch.filter(os.listdir(self.data_path + \u2019/image \u2019), \u2019*.", "id": "27"}, {"metadata": {"id": "multi-task learning.pdf:4:2"}, "page_content": "npy\u2019))\n20\n21\ndef\n__getitem__(self , index):\n22\n# load data from the pre -processed\nnpy files\n23\nimage = torch.from_numpy(np.moveaxis(np.load(self.data_path + \u2019/image /{:d}.npy\n\u2019.format(index)), -1, 0))\n24\nsemantic = torch.from_numpy(np.load(self.data_path + \u2019/label /{:d}.npy\u2019.format(\nindex)))\n25\ndepth = torch.from_numpy(np.moveaxis(np.load(self.data_path + \u2019/depth /{:d}.npy\n\u2019.format(index)), -1, 0))\n26\n27\nreturn {\n28\n\u2019image \u2019: image.float (),\n29\n\u2019semantic \u2019: semantic.float (),\n30\n\u2019depth \u2019: depth.float ()\n31\n}\n32\n33\ndef\n__len__(self):\n34\nreturn\nself.data_len\n35\n36 data_path = \u2019./ data/NYUDv2 \u2019\n37 train_ds = NYUv2(root=data_path , train=True)\n38 val_ds = NYUv2(root=data_path , train=False)\n39\n40 batch_size = 4\n41 train_loader = DataLoader(train_ds , batch_size=batch_size , shuffle=True)\n42 val_loader = DataLoader(val_ds , batch_size=batch_size , shuffle=False)\n1.2.", "id": "28"}, {"metadata": {"id": "multi-task learning.pdf:4:3"}, "page_content": "Model\nTrong ph\u1ea7n n\u00e0y ch\u00fang ta x\u00e2y d\u1ef1ng m\u00f4 h\u00ecnh hard parameter sharing \u0111\u01b0\u1ee3c m\u00f4 t\u1ea3nh\u01b0 h\u00ecnh 3.", "id": "29"}, {"metadata": {"id": "multi-task learning.pdf:4:4"}, "page_content": "Trong \u0111\u00f3,\nc\u00e1c layer s\u1ebdbao g\u1ed3m c\u00e1c l\u1edbp convolution, batch normalization, activation,... 1 import\ntorch.nn as nn\n2 import\ntorch.nn.functional as F\n3\n4 class\nHardParameterSharingModel (nn.Module):\n5\ndef\n__init__(self):\n6\nsuper(HardParameterSharingModel , self).__init__ ()\n7\n# initialise\nnetwork\nparameters\n4\n", "id": "30"}, {"metadata": {"id": "multi-task learning.pdf:5:0"}, "page_content": "AI VIETNAM\naivietnam.edu.vn\n8\nfilter = [64, 128, 256, 512, 512]\n9\n10\nself.class_nb = 13\n11\n12\n# define\nencoder\ndecoder\nlayers\n13\nself.encoder_block = nn.ModuleList ([ self.conv_layer ([3, filter [0]]) ])\n14\nself.decoder_block = nn.ModuleList ([ self.conv_layer ([ filter [0], filter [0]]) ])\n15\nfor i in range (4):\n16\nself.encoder_block.append(self.conv_layer ([ filter[i], filter[i + 1]]))\n17\nself.decoder_block.append(self.conv_layer ([ filter[i + 1], filter[i]]))\n18\n19\n# define\nconvolution\nlayer\n20\nself. conv_block_enc = nn.ModuleList ([ self.conv_layer ([ filter [0], filter [0]]) ])\n21\nself.", "id": "31"}, {"metadata": {"id": "multi-task learning.pdf:5:1"}, "page_content": "conv_block_dec = nn.ModuleList ([ self.conv_layer ([ filter [0], filter [0]]) ])\n22\nfor i in range (4):\n23\nif i == 0:\n24\nself.", "id": "32"}, {"metadata": {"id": "multi-task learning.pdf:5:2"}, "page_content": "conv_block_enc .append(self.conv_layer ([ filter[i + 1], filter[i +\n1]]))\n25\nself.", "id": "33"}, {"metadata": {"id": "multi-task learning.pdf:5:3"}, "page_content": "conv_block_dec .append(self.conv_layer ([ filter[i], filter[i]]))\n26\nelse:\n27\nself.", "id": "34"}, {"metadata": {"id": "multi-task learning.pdf:5:4"}, "page_content": "conv_block_enc .append(nn.Sequential(self.conv_layer ([ filter[i +\n1], filter[i + 1]]) ,\n28\nself.conv_layer ([ filter[i +\n1], filter[i + 1]])))\n29\nself.", "id": "35"}, {"metadata": {"id": "multi-task learning.pdf:5:5"}, "page_content": "conv_block_dec .append(nn.Sequential(self.conv_layer ([ filter[i],\nfilter[i]]),\n30\nself.conv_layer ([ filter[i],\nfilter[i]])))\n31\n32\n# define\ntask\nspecific\nlayers\n33\nself.pred_task1 = nn.Sequential(nn.Conv2d(in_channels=filter [0], out_channels=\nfilter [0], kernel_size =3, padding =1),\n34\nnn.Conv2d(in_channels=filter [0], out_channels=\nself.class_nb , kernel_size =1, padding =0))\n35\nself.pred_task2 = nn.Sequential(nn.Conv2d(in_channels=filter [0], out_channels=\nfilter [0], kernel_size =3, padding =1),\n36\nnn.Conv2d(in_channels=filter [0], out_channels\n=1, kernel_size =1, padding =0))\n37\n38\n# define\npooling\nand\nunpooling\nfunctions\n39\nself.down_sampling = nn.MaxPool2d(kernel_size =2, stride =2, return_indices =True\n)\n40\nself.up_sampling = nn.MaxUnpool2d(kernel_size =2, stride =2)\n41\n42\nfor m in self.modules ():\n43\nif isinstance(m, nn.Conv2d):\n44\nnn.init.", "id": "36"}, {"metadata": {"id": "multi-task learning.pdf:5:6"}, "page_content": "xavier_normal_ (m.weight)\n45\nnn.init.constant_(m.bias , 0)\n46\nelif\nisinstance(m, nn.BatchNorm2d):\n47\nnn.init.constant_(m.weight , 1)\n48\nnn.init.constant_(m.bias , 0)\n49\nelif\nisinstance(m, nn.Linear):\n50\nnn.init.", "id": "37"}, {"metadata": {"id": "multi-task learning.pdf:5:7"}, "page_content": "xavier_normal_ (m.weight)\n51\nnn.init.constant_(m.bias , 0)\n52\n53\n# define\nconvolutional\nblock\n54\ndef\nconv_layer(self , channel):\n55\nconv_block = nn.Sequential(\n56\nnn.Conv2d(in_channels=channel [0], out_channels=channel [1], kernel_size\n=3, padding =1),\n5\n", "id": "38"}, {"metadata": {"id": "multi-task learning.pdf:6:0"}, "page_content": "AI VIETNAM\naivietnam.edu.vn\n57\nnn.BatchNorm2d(num_features=channel [1]) ,\n58\nnn.ReLU(inplace=True)\n59\n)\n60\nreturn\nconv_block\n61\n62\ndef\nforward(self , x):\n63\ng_encoder , g_decoder , g_maxpool , g_upsampl , indices = ([0] * 5 for _ in range\n(5))\n64\nfor i in range (5):\n65\ng_encoder[i], g_decoder[-i - 1] = ([0] * 2 for _ in range (2))\n66\n67\n# global\nshared\nencoder -decoder\nnetwork\n68\nfor i in range (5):\n69\nif i == 0:\n70\ng_encoder[i][0] = self. encoder_block [i](x)\n71\ng_encoder[i][1] = self.", "id": "39"}, {"metadata": {"id": "multi-task learning.pdf:6:1"}, "page_content": "conv_block_enc [i]( g_encoder[i][0])\n72\ng_maxpool[i], indices[i] = self.", "id": "40"}, {"metadata": {"id": "multi-task learning.pdf:6:2"}, "page_content": "down_sampling (g_encoder[i][1])\n73\nelse:\n74\ng_encoder[i][0] = self.", "id": "41"}, {"metadata": {"id": "multi-task learning.pdf:6:3"}, "page_content": "encoder_block [i]( g_maxpool[i - 1])\n75\ng_encoder[i][1] = self.", "id": "42"}, {"metadata": {"id": "multi-task learning.pdf:6:4"}, "page_content": "conv_block_enc [i]( g_encoder[i][0])\n76\ng_maxpool[i], indices[i] = self.", "id": "43"}, {"metadata": {"id": "multi-task learning.pdf:6:5"}, "page_content": "down_sampling (g_encoder[i][1])\n77\n78\nfor i in range (5):\n79\nif i == 0:\n80\ng_upsampl[i] = self.up_sampling(g_maxpool [-1], indices[-i - 1])\n81\ng_decoder[i][0] = self.", "id": "44"}, {"metadata": {"id": "multi-task learning.pdf:6:6"}, "page_content": "decoder_block [-i - 1]( g_upsampl[i])\n82\ng_decoder[i][1] = self.", "id": "45"}, {"metadata": {"id": "multi-task learning.pdf:6:7"}, "page_content": "conv_block_dec [-i - 1]( g_decoder[i][0])\n83\nelse:\n84\ng_upsampl[i] = self.up_sampling(g_decoder[i - 1][-1], indices[-i - 1])\n85\ng_decoder[i][0] = self.", "id": "46"}, {"metadata": {"id": "multi-task learning.pdf:6:8"}, "page_content": "decoder_block [-i - 1]( g_upsampl[i])\n86\ng_decoder[i][1] = self.", "id": "47"}, {"metadata": {"id": "multi-task learning.pdf:6:9"}, "page_content": "conv_block_dec [-i - 1]( g_decoder[i][0])\n87\n88\n# define\ntask\nprediction\nlayers\n89\nt1_pred = F.log_softmax(self.pred_task1(g_decoder[i][1]) , dim =1)\n90\nt2_pred = self.pred_task2(g_decoder[i][1])\n91\n92\nreturn {\n93\n\u2019semantic \u2019: t1_pred ,\n94\n\u2019depth \u2019: t2_pred\n95\n}\n1.3.", "id": "48"}, {"metadata": {"id": "multi-task learning.pdf:6:10"}, "page_content": "Loss\nTrong ph\u1ea7n n\u00e0y ch\u00fang ta x\u00e2y d\u1ef1ng hai h\u00e0m loss kh\u00e1c nhau cho b\u00e0i to\u00e1n semantic segmentation l\u00e0\npixel-wise cross entropy v\u00e0 depth-image prediction l\u00e0 L1.", "id": "49"}, {"metadata": {"id": "multi-task learning.pdf:6:11"}, "page_content": "1 def\ncompute_loss(x_pred , x_output , task_type):\n2\ndevice = x_pred.device\n3\n4\n# binary\nmark to mask out\nundefined\npixel\nspace\n5\nbinary_mask = (torch.sum(x_output , dim =1) != 0).float ().unsqueeze (1).to(device)\n6\n7\nif task_type == \u2019semantic \u2019:\n8\n# semantic\nloss: depth -wise\ncross\nentropy\n9\nloss = F.nll_loss(x_pred , x_output , ignore_index =-1)\n10\n11\nif task_type == \u2019depth \u2019:\n12\n# depth\nloss: l1 norm\n13\nloss = torch.sum(torch.abs(x_pred - x_output) * binary_mask) / torch.nonzero(\nbinary_mask , as_tuple=False).size (0)\n14\n15\nreturn\nloss\n6\n", "id": "50"}, {"metadata": {"id": "multi-task learning.pdf:7:0"}, "page_content": "AI VIETNAM\naivietnam.edu.vn\n1.4.", "id": "51"}, {"metadata": {"id": "multi-task learning.pdf:7:1"}, "page_content": "Training\n1 from tqdm\nimport\ntqdm\n2\n3 def\ntrain_epoch(train_loader , model , device , optimizer):\n4\n# iteration\nfor all\nbatches\n5\nmodel.train ()\n6\nlosses = {\u2019semantic \u2019: [], \u2019depth \u2019: [], \u2019total \u2019: []}\n7\nfor i, batch in tqdm(enumerate(train_loader)):\n8\nimages = batch[\u2019image \u2019].to(device)\n9\nsemantic = batch[\u2019semantic \u2019].", "id": "52"}, {"metadata": {"id": "multi-task learning.pdf:7:2"}, "page_content": "long ().to(device)\n10\ndepth = batch[\u2019depth \u2019].to(device)\n11\n12\noutput = model(images)\n13\n14\noptimizer.zero_grad ()\n15\ntrain_loss = {\n16\n\u2019semantic \u2019: compute_loss(output[\u2019semantic \u2019], semantic , \u2019semantic \u2019),\n17\n\u2019depth \u2019: compute_loss(output[\u2019depth \u2019], depth , \u2019depth \u2019)\n18\n}\n19\n20\nloss = train_loss[\u2019semantic \u2019] + train_loss[\u2019depth \u2019]\n21\n22\nloss.backward ()\n23\noptimizer.step ()\n24\n25\nlosses[\u2019semantic \u2019].", "id": "53"}, {"metadata": {"id": "multi-task learning.pdf:7:3"}, "page_content": "append(train_loss[\u2019semantic \u2019].", "id": "54"}, {"metadata": {"id": "multi-task learning.pdf:7:4"}, "page_content": "item ())\n26\nlosses[\u2019depth \u2019].", "id": "55"}, {"metadata": {"id": "multi-task learning.pdf:7:5"}, "page_content": "append(train_loss[\u2019depth \u2019].", "id": "56"}, {"metadata": {"id": "multi-task learning.pdf:7:6"}, "page_content": "item ())\n27\nlosses[\u2019total \u2019].", "id": "57"}, {"metadata": {"id": "multi-task learning.pdf:7:7"}, "page_content": "append(loss.item ())\n28\n29\navg_losses = {task: sum(task_loss)/len(task_loss) for task , task_loss in losses. items ()}\n30\n31\nreturn\navg_losses\n32\n33\n34 def\nevaluation_epoch (val_loader , model , device):\n35\n# iteration\nfor all\nbatches\n36\nmodel.eval ()\n37\nlosses = {\u2019semantic \u2019: [], \u2019depth \u2019: [], \u2019total \u2019:[]}\n38\nwith\ntorch.no_grad ():\n39\nfor i, batch in tqdm(enumerate(val_loader)):\n40\nimages = batch[\u2019image \u2019].to(device)\n41\nsemantic = batch[\u2019semantic \u2019].", "id": "58"}, {"metadata": {"id": "multi-task learning.pdf:7:8"}, "page_content": "long ().to(device)\n42\ndepth = batch[\u2019depth \u2019].to(device)\n43\n44\noutput = model(images)\n45\n46\ntrain_loss = {\n47\n\u2019semantic \u2019: compute_loss(output[\u2019semantic \u2019], semantic , \u2019semantic \u2019),\n48\n\u2019depth \u2019: compute_loss(output[\u2019depth \u2019], depth , \u2019depth \u2019)\n49\n}\n50\n51\nloss = train_loss[\u2019semantic \u2019] + train_loss[\u2019depth \u2019]\n52\n53\nlosses[\u2019semantic \u2019].", "id": "59"}, {"metadata": {"id": "multi-task learning.pdf:7:9"}, "page_content": "append(train_loss[\u2019semantic \u2019].", "id": "60"}, {"metadata": {"id": "multi-task learning.pdf:7:10"}, "page_content": "item ())\n54\nlosses[\u2019depth \u2019].", "id": "61"}, {"metadata": {"id": "multi-task learning.pdf:7:11"}, "page_content": "append(train_loss[\u2019depth \u2019].", "id": "62"}, {"metadata": {"id": "multi-task learning.pdf:7:12"}, "page_content": "item ())\n55\nlosses[\u2019total \u2019].", "id": "63"}, {"metadata": {"id": "multi-task learning.pdf:7:13"}, "page_content": "append(loss.item ())\n56\n57\navg_losses = {task: sum(task_loss)/len(task_loss) for task , task_loss in losses.", "id": "64"}, {"metadata": {"id": "multi-task learning.pdf:7:14"}, "page_content": "7\n", "id": "65"}, {"metadata": {"id": "multi-task learning.pdf:8:0"}, "page_content": "AI VIETNAM\naivietnam.edu.vn\nitems ()}\n58\nreturn\navg_losses\n59\n60 def train(train_loader , val_loader , model , device , optimizer , epochs):\n61\nbest_loss = 100. 62\nfor epoch in range(epochs):\n63\ntrain_loss = train_epoch(train_loader , model , device , optimizer)\n64\nval_loss = train_epoch(train_loader , model , device , optimizer)\n65\nscheduler.step ()\n66\nif val_loss[\u2019total \u2019] < best_loss:\n67\nbest_loss = val_loss[\u2019total \u2019]\n68\ntorch.save(model.state_dict (), \u2019./ model/\nsoft_parameter_sharing_model_weights .pth\u2019)\n69\nprint(f\"Model\nsave: ./ model/ soft_parameter_sharing_model_weights .pth\")\n70\nprint(\u2019Epoch: {:04d} | Train: Semantic\nLoss {:.4f} - Depth\nLoss {:.4f} - Total\nLoss {:.4f} ||\u2019\n71\n\u2019Eval: Semantic\nLoss {:.4f} - Depth\nLoss {:.4f} - Total\nLoss {:.4f} \u2019\n72\n.format(epoch +1, train_loss[\u2019semantic \u2019], train_loss[\u2019depth \u2019], train_loss[\u2019\ntotal \u2019],\n73\nval_loss[\u2019semantic \u2019], val_loss[\u2019depth \u2019], val_loss[\u2019total \u2019]))\n74\nreturnn\nmodel\n75\n76 device = torch.device(\"cuda\" if torch.cuda.is_available () else \"cpu\")\n77 model = HardParameterSharingModel ()\n78 model.to(device)\n79 optimizer = torch.optim.Adam(model.parameters (), lr=1e-4)\n80 scheduler = torch.optim.lr_scheduler.StepLR(optimizer , step_size =100 , gamma =0.5)\n81\n82 epochs = 10\n83 model = train(train_loader , val_loader , model , device , optimizer , epochs)\n1.5.", "id": "66"}, {"metadata": {"id": "multi-task learning.pdf:8:1"}, "page_content": "Inference\n1 model_path = \u2019./ model/ hard_parameter_sharing_model_weights .pth\u2019\n2 model = HardParameterSharingModel ()\n3 model.", "id": "67"}, {"metadata": {"id": "multi-task learning.pdf:8:2"}, "page_content": "load_state_dict (torch.load(model_path))\n4 model.eval ()\n5 model.to(device)\n6\n7 test_sample = next(iter(val_ds))\n8 test_sample = {task: test_sample[task ].", "id": "68"}, {"metadata": {"id": "multi-task learning.pdf:8:3"}, "page_content": "unsqueeze (0).to(device) for task in test_sample\n.keys ()}\n9\n10 with\ntorch.no_grad ():\n11\noutput = model(test_sample[\u2019image \u2019])\n12 # output: output[\u2019depth \u2019], output[\u2019sematic \u2019]\n8\n", "id": "69"}, {"metadata": {"id": "multi-task learning.pdf:9:0"}, "page_content": "AI VIETNAM\naivietnam.edu.vn\nPh\u1ea7n 3.", "id": "70"}, {"metadata": {"id": "multi-task learning.pdf:9:1"}, "page_content": "C\u00e2u h\u1ecfi tr\u1eafc nghi\u1ec7m\nC\u00e2u h\u1ecfi 1 H\u1ecdc \u0111a t\u00e1c v\u1ee5(Multi-Task Learning) l\u00e0 g\u00ec? a) H\u1ecdc c\u00e1ch th\u1ef1c hi\u1ec7n nhi\u1ec1u t\u00e1c v\u1ee5kh\u00e1c nhau m\u1ed9t c\u00e1ch \u0111\u1ed9c l\u1eadp\nb) H\u1ecdc c\u00e1ch th\u1ef1c hi\u1ec7n nhi\u1ec1u t\u00e1c v\u1ee5c\u00f9ng m\u1ed9t l\u00fac\nc) H\u1ecdc c\u00e1ch th\u1ef1c hi\u1ec7n m\u1ed9t t\u00e1c v\u1ee5duy nh\u1ea5t\nd) H\u1ecdc c\u00e1ch th\u1ef1c hi\u1ec7n nhi\u1ec1u t\u00e1c v\u1ee5theo th\u1ee9t\u1ef1\nC\u00e2u h\u1ecfi 2 L\u1ee3i \u00edch ch\u00ednh c\u1ee7a h\u1ecdc \u0111a t\u00e1c v\u1ee5l\u00e0 g\u00ec?", "id": "71"}, {"metadata": {"id": "multi-task learning.pdf:9:2"}, "page_content": "a) T\u0103ng \u0111\u1ed9ch\u00ednh x\u00e1c c\u1ee7a m\u1ed7i t\u00e1c v\u1ee5\nb) T\u0103ng kh\u1ea3n\u0103ng chuy\u1ec3n giao ki\u1ebfn th\u1ee9c gi\u1eefa c\u00e1c t\u00e1c v\u1ee5\nc) C\u1ea32 \u0111\u00e1p \u00e1n \u0111\u1ec1u \u0111\u00fang\nd) C\u1ea32 \u0111\u00e1p \u00e1n \u0111\u1ec1u sai\nC\u00e2u h\u1ecfi 3 Ph\u01b0\u01a1ng ph\u00e1p n\u00e0o sau \u0111\u00e2y kh\u00f4ng ph\u1ea3i l\u00e0 ph\u01b0\u01a1ng ph\u00e1p h\u1ecdc \u0111a t\u00e1c v\u1ee5?", "id": "72"}, {"metadata": {"id": "multi-task learning.pdf:9:3"}, "page_content": "a) Chia s\u1ebbtham s\u1ed1\nb) Chia s\u1ebbbi\u1ec3u di\u1ec5n\nc) Chia s\u1ebbd\u1eefli\u1ec7u\nd) H\u1ecdc tu\u1ea7n t\u1ef1\nC\u00e2u h\u1ecfi 4 M\u00f4 h\u00ecnh MTL n\u00e0o sau \u0111\u00e2y t\u1eadp trung v\u00e0o tinh ch\u1ec9nh kh\u1ed1i encoder?", "id": "73"}, {"metadata": {"id": "multi-task learning.pdf:9:4"}, "page_content": "a) PAD-Net\nb) PAP-Net\nc) MTI-Net\nd) Cross-Stitch Networks\nC\u00e2u h\u1ecfi 5 M\u00f4 h\u00ecnh MTL n\u00e0o sau \u0111\u00e2y t\u1eadp trung v\u00e0o tinh ch\u1ec9nh kh\u1ed1i decoder?", "id": "74"}, {"metadata": {"id": "multi-task learning.pdf:9:5"}, "page_content": "a) PAD-Net\nb) MTAN\nc) NDDR-CNN\nd) Cross-Stitch Networks\nC\u00e2u h\u1ecfi 6 H\u00e0m loss \u0111\u1ec3hu\u1ea5n luy\u1ec7n cho b\u00e0i to\u00e1n semantic segmentation l\u00e0?", "id": "75"}, {"metadata": {"id": "multi-task learning.pdf:9:6"}, "page_content": "a) Pixel-wise Cross Entropy\nb) Huber Loss\nc) Recontruction Loss\nd) Contrastive Loss\nC\u00e2u h\u1ecfi 7 H\u00e0m loss \u0111\u1ec3hu\u1ea5n luy\u1ec7n cho b\u00e0i to\u00e1n depth-image prediction l\u00e0?", "id": "76"}, {"metadata": {"id": "multi-task learning.pdf:9:7"}, "page_content": "a) Pixel-wise Cross Entropy\nb) Huber Loss\n9\n", "id": "77"}, {"metadata": {"id": "multi-task learning.pdf:10:0"}, "page_content": "AI VIETNAM\naivietnam.edu.vn\nc) L1\nd) Contrastive Loss\nC\u00e2u h\u1ecfi 8 B\u1ed9d\u1eefli\u1ec7u s\u1eedd\u1ee5ng cho ph\u1ea7n th\u1ef1c nghi\u1ec7m l\u00e0? a) NYUD-V2\nb) CIFAR10\nc) CIFAR100\nd) MNIST\nC\u00e2u h\u1ecfi 9 B\u1ed9d\u1eefli\u1ec7u NYUD-V2 bao nhi\u00eau sample?", "id": "78"}, {"metadata": {"id": "multi-task learning.pdf:10:1"}, "page_content": "a) 499\nb) 1119\nc) 1449\nd) 1999\nC\u00e2u h\u1ecfi 10 \u0110\u1ed9\u0111o \u0111\u1ec3\u0111\u00e1nh gi\u00e1 cho b\u00e0i to\u00e1n semantic segmentation l\u00e0?", "id": "79"}, {"metadata": {"id": "multi-task learning.pdf:10:2"}, "page_content": "a) IoU\nb) F-Score\nc) Recall\nd) Precision\n- H\u1ebft -\n10\n", "id": "80"}], "ids": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80"], "sources": [{"file_name": "multi-task learning.pdf", "created_at": "2024-12-29 21:54:49"}]}
+{
+    "docstore": [
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:1:0"
+            },
+            "page_content": "AI VIET NAM \u2013 AIO COURSE 2023\nProject: Multi-Task Learning\nQuoc-Thai Nguyen v\u00e0 Quang-Vinh Dinh\nNg\u00e0y 30 th\u00e1ng 4 n\u0103m 2024\nPh\u1ea7n I. Gi\u1edbi thi\u1ec7u\nH\u00ecnh 1: V\u00ed d\u1ee5v\u1ec1m\u00f4 h\u00ecnh h\u1ecdc \u0111a t\u00e1c v\u1ee5cho b\u00e0i to\u00e1n image semantic segmentation v\u00e0 depth-image\nprediction\nH\u00ecnh 2: C\u00e1c ph\u01b0\u01a1ng ph\u00e1p hu\u1ea5n luy\u1ec7n m\u00f4 h\u00ecnh h\u1ecdc \u0111a t\u00e1c v\u1ee5.",
+            "id": "0"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:1:1"
+            },
+            "page_content": "1\n",
+            "id": "1"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:0"
+            },
+            "page_content": "AI VIETNAM\naivietnam.edu.vn\nM\u00f4 h\u00ecnh h\u1ecdc \u0111a t\u00e1c v\u1ee5(Multi-Task Learning) l\u00e0 ph\u01b0\u01a1ng ph\u00e1p hu\u1ea5n luy\u1ec7n cho m\u1ed9t m\u00f4 h\u00ecnh\nnh\u01b0ng c\u00f3 th\u1ec3gi\u1ea3i quy\u1ebft cho nhi\u1ec1u b\u00e0i to\u00e1n kh\u00e1c nhau.",
+            "id": "2"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:1"
+            },
+            "page_content": "V\u00ed d\u1ee5, ch\u00fang ta hu\u1ea5n luy\u1ec7n m\u1ed9t m\u00f4 h\u00ecnh v\u1edbi\n\u0111\u1ea7u v\u00e0o l\u00e0 m\u1ed9t h\u00ecnh \u1ea3nh v\u00e0 \u0111\u1ea7u ra gi\u1ea3i quy\u1ebft cho hai b\u00e0i to\u00e1n kh\u00e1c nhau nh\u01b0: semantic segmentation\nv\u00e0 depth-image prediction \u0111\u01b0\u1ee3c m\u00f4 t\u1ea3nh\u01b0 H\u00ecnh 1.",
+            "id": "3"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:2"
+            },
+            "page_content": "C\u00e1c ph\u01b0\u01a1ng ph\u00e1p hu\u1ea5n luy\u1ec7n c\u00e1c m\u00f4 h\u00ecnh MTL c\u00f3 th\u1ec3\u0111\u01b0\u1ee3c chia th\u00e0nh 2 nh\u00f3m:\n1.",
+            "id": "4"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:3"
+            },
+            "page_content": "Deep Multi-Task Architectures.",
+            "id": "5"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:4"
+            },
+            "page_content": "Bao g\u1ed3m c\u00e1c ph\u01b0\u01a1ng ph\u00e1p t\u1eadp trung v\u00e0o x\u00e2y d\u1ef1ng c\u00e1c m\u00f4 h\u00ecnh\nchung \u0111\u1ec3gi\u1ea3i quy\u1ebft c\u00e1c b\u00e0i to\u00e1n kh\u00e1c nhau.",
+            "id": "6"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:5"
+            },
+            "page_content": "Trong \u0111\u00f3 g\u1ed3m 2 th\u00e0nh ph\u1ea7n ch\u00ednh: th\u00e0nh ph\u1ea7n th\u1ee9\nnh\u1ea5t bao g\u1ed3m c\u00e1c layer chung ho\u1eb7c chia s\u1ebbtr\u1ecdng s\u1ed1\u0111\u1ec3h\u1ecdc c\u00e1c \u0111\u1eb7c tr\u01b0ng th\u01b0\u1eddng g\u1ecdi l\u00e0 shared-\nencoder; th\u00e0nh ph\u1ea7n th\u1ee9hai bao g\u1ed3m c\u00e1c layer ri\u00eang \u0111\u1ec3h\u1ecdc c\u00e1c \u0111\u1eb7c tr\u01b0ng \u0111\u1ec3t\u1ed1i \u01b0u cho t\u1eebng b\u00e0i\nto\u00e1n ri\u00eang th\u01b0\u1eddng \u0111\u01b0\u1ee3c g\u1ecdi l\u00e0 task-specific layer.",
+            "id": "7"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:6"
+            },
+            "page_content": "2.",
+            "id": "8"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:7"
+            },
+            "page_content": "Optimization Strategy.",
+            "id": "9"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:8"
+            },
+            "page_content": "V\u1edbi m\u1ed7i b\u00e0i to\u00e1n s\u1ebdc\u00f3 h\u00e0m loss \u0111\u00e1nh gi\u00e1 kh\u00e1c nhau.",
+            "id": "10"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:9"
+            },
+            "page_content": "Trong ph\u1ea7n n\u00e0y\ns\u1ebdt\u1eadp trung x\u00e2y d\u1ef1ng c\u00e1c thu\u1eadt to\u00e1n t\u1ed1i \u01b0u trong qu\u00e1 tr\u00ecnh hu\u1ea5n luy\u1ec7n v\u00e0 c\u1eadp nh\u1eadt tr\u1ecdng s\u1ed1.",
+            "id": "11"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:10"
+            },
+            "page_content": "\u0110i\u1ec3n h\u00ecnh trong \u0111\u00f3 l\u00e0 c\u00e1c ph\u01b0\u01a1ng ph\u00e1p c\u00e2n b\u1eb1ng tr\u1ecdng s\u1ed1khi t\u1ed5ng h\u1ee3p h\u00e0m loss, nh\u01b0 gradient\nnormalization, uncertainy weighting,... Trong ph\u1ea7n n\u00e0y \u0111\u1ec3b\u01b0\u1edbc \u0111\u1ea7u hi\u1ec3u r\u00f5 v\u1ec1c\u00e1c ph\u01b0\u01a1ng ph\u00e1p hu\u1ea5n luy\u1ec7n m\u00f4 h\u00ecnh MTL, ch\u00fang ta s\u1ebdtri\u1ec3n\nkhai m\u00f4 h\u00ecnh MTL c\u01a1 b\u1ea3n t\u1eadp trung v\u00e0o tinh ch\u1ec9nh ph\u1ea7n encoder l\u00e0 hard parameter sharing model.",
+            "id": "12"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:2:11"
+            },
+            "page_content": "2\n",
+            "id": "13"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:0"
+            },
+            "page_content": "AI VIETNAM\naivietnam.edu.vn\nPh\u1ea7n II. Multi-Task Learning for Com-\nputer Vision\nHai ph\u01b0\u01a1ng ph\u00e1p ch\u00ednh bao g\u1ed3m: hard parameter sharing \u0111\u01b0\u1ee3c m\u00f4 t\u1ea3trong h\u00ecnh 3 v\u00e0 soft parameter\nsharing \u0111\u01b0\u1ee3c m\u00f4 t\u1ea3trong h\u00ecnh 4.",
+            "id": "14"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:1"
+            },
+            "page_content": "H\u00ecnh 3: Hard parameter sharing.",
+            "id": "15"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:2"
+            },
+            "page_content": "H\u00ecnh 4: Soft parameter sharing.",
+            "id": "16"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:3"
+            },
+            "page_content": "Hard parameter sharing bao g\u1ed3m c\u00e1c layer d\u00f9ng chung cho t\u1ea5t c\u1ea3c\u00e1c task, shared layers.",
+            "id": "17"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:4"
+            },
+            "page_content": "Sau c\u00e1c\nshared layers bao g\u1ed3m c\u00e1c task-specific layers cho c\u00e1c task kh\u00e1c nhau.",
+            "id": "18"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:5"
+            },
+            "page_content": "Soft parameter sharing bao g\u1ed3m c\u00e1c layer d\u00f9ng ri\u00eang cho c\u00e1c task kh\u00e1c nhau.",
+            "id": "19"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:6"
+            },
+            "page_content": "Tuy nhi\u00ean, thay v\u00ec \u1edf\nc\u00e1c layer \u0111\u1ea7u ti\u00ean c\u1ee7a c\u00e1c m\u00f4 h\u00ecnh s\u1ebdho\u1ea1t \u0111\u1ed9ng ri\u00eang l\u1ebdcho c\u00e1c task th\u00ec s\u1ebdc\u00f3 c\u00e1c k\u1ebft n\u1ed1t v\u1edbi \u0111\u1ebfn task\nkh\u00e1c.",
+            "id": "20"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:7"
+            },
+            "page_content": "C\u00e1c k\u1ebft n\u1ed1i c\u00f3 th\u1ec3l\u00e0 tuy\u1ebfn t\u00ednh ho\u1eb7c s\u1eedd\u1ee5ng c\u00e1c h\u00e0m k\u00edch ho\u1ea1t \u0111\u1ec3k\u1ebft n\u1ed1i c\u00e1c layer kh\u00e1c nhau.",
+            "id": "21"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:8"
+            },
+            "page_content": "Trong ph\u1ea7n n\u00e0y ch\u00fang ta s\u1ebdhu\u1ea5n luy\u1ec7n hard parameter sharing model tr\u00ean b\u1ed9d\u1eefli\u1ec7u NYUD-V2\ncho hai b\u00e0i to\u00e1n semantic segmentation v\u00e0 depth-image prediction.",
+            "id": "22"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:9"
+            },
+            "page_content": "B\u1ed9d\u1eefli\u1ec7u sau khi th\u1ef1c hi\u1ec7n c\u00e1c\nb\u01b0\u1edbc ti\u1ec1n x\u1eedl\u00fd nh\u01b0 chuy\u1ec3n sang tensor,...",
+            "id": "23"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:10"
+            },
+            "page_content": "c\u00f3 th\u1ec3\u0111\u01b0\u1ee3c t\u1ea3i v\u1ec1t\u1ea1i \u0111\u00e2y.",
+            "id": "24"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:3:11"
+            },
+            "page_content": "3\n",
+            "id": "25"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:4:0"
+            },
+            "page_content": "AI VIETNAM\naivietnam.edu.vn\n1.1.",
+            "id": "26"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:4:1"
+            },
+            "page_content": "Dataset\n1 import os\n2 import\ntorch\n3 import\nfnmatch\n4 import\nnumpy as np\n5 from\ntorch.utils.data\nimport\nDataLoader\n6\n7 class\nNYUv2(torch.utils.data.dataset.Dataset):\n8\ndef\n__init__(self , root , train=True):\n9\nself.train = train\n10\nself.root = os.path.expanduser(root)\n11\n12\n# read the data file\n13\nif train:\n14\nself.data_path = root + \u2019/train \u2019\n15\nelse:\n16\nself.data_path = root + \u2019/val\u2019\n17\n18\n# calculate\ndata\nlength\n19\nself.data_len = len(fnmatch.filter(os.listdir(self.data_path + \u2019/image \u2019), \u2019*.",
+            "id": "27"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:4:2"
+            },
+            "page_content": "npy\u2019))\n20\n21\ndef\n__getitem__(self , index):\n22\n# load data from the pre -processed\nnpy files\n23\nimage = torch.from_numpy(np.moveaxis(np.load(self.data_path + \u2019/image /{:d}.npy\n\u2019.format(index)), -1, 0))\n24\nsemantic = torch.from_numpy(np.load(self.data_path + \u2019/label /{:d}.npy\u2019.format(\nindex)))\n25\ndepth = torch.from_numpy(np.moveaxis(np.load(self.data_path + \u2019/depth /{:d}.npy\n\u2019.format(index)), -1, 0))\n26\n27\nreturn {\n28\n\u2019image \u2019: image.float (),\n29\n\u2019semantic \u2019: semantic.float (),\n30\n\u2019depth \u2019: depth.float ()\n31\n}\n32\n33\ndef\n__len__(self):\n34\nreturn\nself.data_len\n35\n36 data_path = \u2019./ data/NYUDv2 \u2019\n37 train_ds = NYUv2(root=data_path , train=True)\n38 val_ds = NYUv2(root=data_path , train=False)\n39\n40 batch_size = 4\n41 train_loader = DataLoader(train_ds , batch_size=batch_size , shuffle=True)\n42 val_loader = DataLoader(val_ds , batch_size=batch_size , shuffle=False)\n1.2.",
+            "id": "28"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:4:3"
+            },
+            "page_content": "Model\nTrong ph\u1ea7n n\u00e0y ch\u00fang ta x\u00e2y d\u1ef1ng m\u00f4 h\u00ecnh hard parameter sharing \u0111\u01b0\u1ee3c m\u00f4 t\u1ea3nh\u01b0 h\u00ecnh 3.",
+            "id": "29"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:4:4"
+            },
+            "page_content": "Trong \u0111\u00f3,\nc\u00e1c layer s\u1ebdbao g\u1ed3m c\u00e1c l\u1edbp convolution, batch normalization, activation,... 1 import\ntorch.nn as nn\n2 import\ntorch.nn.functional as F\n3\n4 class\nHardParameterSharingModel (nn.Module):\n5\ndef\n__init__(self):\n6\nsuper(HardParameterSharingModel , self).__init__ ()\n7\n# initialise\nnetwork\nparameters\n4\n",
+            "id": "30"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:5:0"
+            },
+            "page_content": "AI VIETNAM\naivietnam.edu.vn\n8\nfilter = [64, 128, 256, 512, 512]\n9\n10\nself.class_nb = 13\n11\n12\n# define\nencoder\ndecoder\nlayers\n13\nself.encoder_block = nn.ModuleList ([ self.conv_layer ([3, filter [0]]) ])\n14\nself.decoder_block = nn.ModuleList ([ self.conv_layer ([ filter [0], filter [0]]) ])\n15\nfor i in range (4):\n16\nself.encoder_block.append(self.conv_layer ([ filter[i], filter[i + 1]]))\n17\nself.decoder_block.append(self.conv_layer ([ filter[i + 1], filter[i]]))\n18\n19\n# define\nconvolution\nlayer\n20\nself. conv_block_enc = nn.ModuleList ([ self.conv_layer ([ filter [0], filter [0]]) ])\n21\nself.",
+            "id": "31"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:5:1"
+            },
+            "page_content": "conv_block_dec = nn.ModuleList ([ self.conv_layer ([ filter [0], filter [0]]) ])\n22\nfor i in range (4):\n23\nif i == 0:\n24\nself.",
+            "id": "32"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:5:2"
+            },
+            "page_content": "conv_block_enc .append(self.conv_layer ([ filter[i + 1], filter[i +\n1]]))\n25\nself.",
+            "id": "33"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:5:3"
+            },
+            "page_content": "conv_block_dec .append(self.conv_layer ([ filter[i], filter[i]]))\n26\nelse:\n27\nself.",
+            "id": "34"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:5:4"
+            },
+            "page_content": "conv_block_enc .append(nn.Sequential(self.conv_layer ([ filter[i +\n1], filter[i + 1]]) ,\n28\nself.conv_layer ([ filter[i +\n1], filter[i + 1]])))\n29\nself.",
+            "id": "35"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:5:5"
+            },
+            "page_content": "conv_block_dec .append(nn.Sequential(self.conv_layer ([ filter[i],\nfilter[i]]),\n30\nself.conv_layer ([ filter[i],\nfilter[i]])))\n31\n32\n# define\ntask\nspecific\nlayers\n33\nself.pred_task1 = nn.Sequential(nn.Conv2d(in_channels=filter [0], out_channels=\nfilter [0], kernel_size =3, padding =1),\n34\nnn.Conv2d(in_channels=filter [0], out_channels=\nself.class_nb , kernel_size =1, padding =0))\n35\nself.pred_task2 = nn.Sequential(nn.Conv2d(in_channels=filter [0], out_channels=\nfilter [0], kernel_size =3, padding =1),\n36\nnn.Conv2d(in_channels=filter [0], out_channels\n=1, kernel_size =1, padding =0))\n37\n38\n# define\npooling\nand\nunpooling\nfunctions\n39\nself.down_sampling = nn.MaxPool2d(kernel_size =2, stride =2, return_indices =True\n)\n40\nself.up_sampling = nn.MaxUnpool2d(kernel_size =2, stride =2)\n41\n42\nfor m in self.modules ():\n43\nif isinstance(m, nn.Conv2d):\n44\nnn.init.",
+            "id": "36"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:5:6"
+            },
+            "page_content": "xavier_normal_ (m.weight)\n45\nnn.init.constant_(m.bias , 0)\n46\nelif\nisinstance(m, nn.BatchNorm2d):\n47\nnn.init.constant_(m.weight , 1)\n48\nnn.init.constant_(m.bias , 0)\n49\nelif\nisinstance(m, nn.Linear):\n50\nnn.init.",
+            "id": "37"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:5:7"
+            },
+            "page_content": "xavier_normal_ (m.weight)\n51\nnn.init.constant_(m.bias , 0)\n52\n53\n# define\nconvolutional\nblock\n54\ndef\nconv_layer(self , channel):\n55\nconv_block = nn.Sequential(\n56\nnn.Conv2d(in_channels=channel [0], out_channels=channel [1], kernel_size\n=3, padding =1),\n5\n",
+            "id": "38"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:0"
+            },
+            "page_content": "AI VIETNAM\naivietnam.edu.vn\n57\nnn.BatchNorm2d(num_features=channel [1]) ,\n58\nnn.ReLU(inplace=True)\n59\n)\n60\nreturn\nconv_block\n61\n62\ndef\nforward(self , x):\n63\ng_encoder , g_decoder , g_maxpool , g_upsampl , indices = ([0] * 5 for _ in range\n(5))\n64\nfor i in range (5):\n65\ng_encoder[i], g_decoder[-i - 1] = ([0] * 2 for _ in range (2))\n66\n67\n# global\nshared\nencoder -decoder\nnetwork\n68\nfor i in range (5):\n69\nif i == 0:\n70\ng_encoder[i][0] = self. encoder_block [i](x)\n71\ng_encoder[i][1] = self.",
+            "id": "39"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:1"
+            },
+            "page_content": "conv_block_enc [i]( g_encoder[i][0])\n72\ng_maxpool[i], indices[i] = self.",
+            "id": "40"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:2"
+            },
+            "page_content": "down_sampling (g_encoder[i][1])\n73\nelse:\n74\ng_encoder[i][0] = self.",
+            "id": "41"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:3"
+            },
+            "page_content": "encoder_block [i]( g_maxpool[i - 1])\n75\ng_encoder[i][1] = self.",
+            "id": "42"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:4"
+            },
+            "page_content": "conv_block_enc [i]( g_encoder[i][0])\n76\ng_maxpool[i], indices[i] = self.",
+            "id": "43"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:5"
+            },
+            "page_content": "down_sampling (g_encoder[i][1])\n77\n78\nfor i in range (5):\n79\nif i == 0:\n80\ng_upsampl[i] = self.up_sampling(g_maxpool [-1], indices[-i - 1])\n81\ng_decoder[i][0] = self.",
+            "id": "44"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:6"
+            },
+            "page_content": "decoder_block [-i - 1]( g_upsampl[i])\n82\ng_decoder[i][1] = self.",
+            "id": "45"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:7"
+            },
+            "page_content": "conv_block_dec [-i - 1]( g_decoder[i][0])\n83\nelse:\n84\ng_upsampl[i] = self.up_sampling(g_decoder[i - 1][-1], indices[-i - 1])\n85\ng_decoder[i][0] = self.",
+            "id": "46"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:8"
+            },
+            "page_content": "decoder_block [-i - 1]( g_upsampl[i])\n86\ng_decoder[i][1] = self.",
+            "id": "47"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:9"
+            },
+            "page_content": "conv_block_dec [-i - 1]( g_decoder[i][0])\n87\n88\n# define\ntask\nprediction\nlayers\n89\nt1_pred = F.log_softmax(self.pred_task1(g_decoder[i][1]) , dim =1)\n90\nt2_pred = self.pred_task2(g_decoder[i][1])\n91\n92\nreturn {\n93\n\u2019semantic \u2019: t1_pred ,\n94\n\u2019depth \u2019: t2_pred\n95\n}\n1.3.",
+            "id": "48"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:10"
+            },
+            "page_content": "Loss\nTrong ph\u1ea7n n\u00e0y ch\u00fang ta x\u00e2y d\u1ef1ng hai h\u00e0m loss kh\u00e1c nhau cho b\u00e0i to\u00e1n semantic segmentation l\u00e0\npixel-wise cross entropy v\u00e0 depth-image prediction l\u00e0 L1.",
+            "id": "49"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:6:11"
+            },
+            "page_content": "1 def\ncompute_loss(x_pred , x_output , task_type):\n2\ndevice = x_pred.device\n3\n4\n# binary\nmark to mask out\nundefined\npixel\nspace\n5\nbinary_mask = (torch.sum(x_output , dim =1) != 0).float ().unsqueeze (1).to(device)\n6\n7\nif task_type == \u2019semantic \u2019:\n8\n# semantic\nloss: depth -wise\ncross\nentropy\n9\nloss = F.nll_loss(x_pred , x_output , ignore_index =-1)\n10\n11\nif task_type == \u2019depth \u2019:\n12\n# depth\nloss: l1 norm\n13\nloss = torch.sum(torch.abs(x_pred - x_output) * binary_mask) / torch.nonzero(\nbinary_mask , as_tuple=False).size (0)\n14\n15\nreturn\nloss\n6\n",
+            "id": "50"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:0"
+            },
+            "page_content": "AI VIETNAM\naivietnam.edu.vn\n1.4.",
+            "id": "51"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:1"
+            },
+            "page_content": "Training\n1 from tqdm\nimport\ntqdm\n2\n3 def\ntrain_epoch(train_loader , model , device , optimizer):\n4\n# iteration\nfor all\nbatches\n5\nmodel.train ()\n6\nlosses = {\u2019semantic \u2019: [], \u2019depth \u2019: [], \u2019total \u2019: []}\n7\nfor i, batch in tqdm(enumerate(train_loader)):\n8\nimages = batch[\u2019image \u2019].to(device)\n9\nsemantic = batch[\u2019semantic \u2019].",
+            "id": "52"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:2"
+            },
+            "page_content": "long ().to(device)\n10\ndepth = batch[\u2019depth \u2019].to(device)\n11\n12\noutput = model(images)\n13\n14\noptimizer.zero_grad ()\n15\ntrain_loss = {\n16\n\u2019semantic \u2019: compute_loss(output[\u2019semantic \u2019], semantic , \u2019semantic \u2019),\n17\n\u2019depth \u2019: compute_loss(output[\u2019depth \u2019], depth , \u2019depth \u2019)\n18\n}\n19\n20\nloss = train_loss[\u2019semantic \u2019] + train_loss[\u2019depth \u2019]\n21\n22\nloss.backward ()\n23\noptimizer.step ()\n24\n25\nlosses[\u2019semantic \u2019].",
+            "id": "53"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:3"
+            },
+            "page_content": "append(train_loss[\u2019semantic \u2019].",
+            "id": "54"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:4"
+            },
+            "page_content": "item ())\n26\nlosses[\u2019depth \u2019].",
+            "id": "55"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:5"
+            },
+            "page_content": "append(train_loss[\u2019depth \u2019].",
+            "id": "56"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:6"
+            },
+            "page_content": "item ())\n27\nlosses[\u2019total \u2019].",
+            "id": "57"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:7"
+            },
+            "page_content": "append(loss.item ())\n28\n29\navg_losses = {task: sum(task_loss)/len(task_loss) for task , task_loss in losses. items ()}\n30\n31\nreturn\navg_losses\n32\n33\n34 def\nevaluation_epoch (val_loader , model , device):\n35\n# iteration\nfor all\nbatches\n36\nmodel.eval ()\n37\nlosses = {\u2019semantic \u2019: [], \u2019depth \u2019: [], \u2019total \u2019:[]}\n38\nwith\ntorch.no_grad ():\n39\nfor i, batch in tqdm(enumerate(val_loader)):\n40\nimages = batch[\u2019image \u2019].to(device)\n41\nsemantic = batch[\u2019semantic \u2019].",
+            "id": "58"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:8"
+            },
+            "page_content": "long ().to(device)\n42\ndepth = batch[\u2019depth \u2019].to(device)\n43\n44\noutput = model(images)\n45\n46\ntrain_loss = {\n47\n\u2019semantic \u2019: compute_loss(output[\u2019semantic \u2019], semantic , \u2019semantic \u2019),\n48\n\u2019depth \u2019: compute_loss(output[\u2019depth \u2019], depth , \u2019depth \u2019)\n49\n}\n50\n51\nloss = train_loss[\u2019semantic \u2019] + train_loss[\u2019depth \u2019]\n52\n53\nlosses[\u2019semantic \u2019].",
+            "id": "59"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:9"
+            },
+            "page_content": "append(train_loss[\u2019semantic \u2019].",
+            "id": "60"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:10"
+            },
+            "page_content": "item ())\n54\nlosses[\u2019depth \u2019].",
+            "id": "61"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:11"
+            },
+            "page_content": "append(train_loss[\u2019depth \u2019].",
+            "id": "62"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:12"
+            },
+            "page_content": "item ())\n55\nlosses[\u2019total \u2019].",
+            "id": "63"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:13"
+            },
+            "page_content": "append(loss.item ())\n56\n57\navg_losses = {task: sum(task_loss)/len(task_loss) for task , task_loss in losses.",
+            "id": "64"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:7:14"
+            },
+            "page_content": "7\n",
+            "id": "65"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:8:0"
+            },
+            "page_content": "AI VIETNAM\naivietnam.edu.vn\nitems ()}\n58\nreturn\navg_losses\n59\n60 def train(train_loader , val_loader , model , device , optimizer , epochs):\n61\nbest_loss = 100. 62\nfor epoch in range(epochs):\n63\ntrain_loss = train_epoch(train_loader , model , device , optimizer)\n64\nval_loss = train_epoch(train_loader , model , device , optimizer)\n65\nscheduler.step ()\n66\nif val_loss[\u2019total \u2019] < best_loss:\n67\nbest_loss = val_loss[\u2019total \u2019]\n68\ntorch.save(model.state_dict (), \u2019./ model/\nsoft_parameter_sharing_model_weights .pth\u2019)\n69\nprint(f\"Model\nsave: ./ model/ soft_parameter_sharing_model_weights .pth\")\n70\nprint(\u2019Epoch: {:04d} | Train: Semantic\nLoss {:.4f} - Depth\nLoss {:.4f} - Total\nLoss {:.4f} ||\u2019\n71\n\u2019Eval: Semantic\nLoss {:.4f} - Depth\nLoss {:.4f} - Total\nLoss {:.4f} \u2019\n72\n.format(epoch +1, train_loss[\u2019semantic \u2019], train_loss[\u2019depth \u2019], train_loss[\u2019\ntotal \u2019],\n73\nval_loss[\u2019semantic \u2019], val_loss[\u2019depth \u2019], val_loss[\u2019total \u2019]))\n74\nreturnn\nmodel\n75\n76 device = torch.device(\"cuda\" if torch.cuda.is_available () else \"cpu\")\n77 model = HardParameterSharingModel ()\n78 model.to(device)\n79 optimizer = torch.optim.Adam(model.parameters (), lr=1e-4)\n80 scheduler = torch.optim.lr_scheduler.StepLR(optimizer , step_size =100 , gamma =0.5)\n81\n82 epochs = 10\n83 model = train(train_loader , val_loader , model , device , optimizer , epochs)\n1.5.",
+            "id": "66"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:8:1"
+            },
+            "page_content": "Inference\n1 model_path = \u2019./ model/ hard_parameter_sharing_model_weights .pth\u2019\n2 model = HardParameterSharingModel ()\n3 model.",
+            "id": "67"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:8:2"
+            },
+            "page_content": "load_state_dict (torch.load(model_path))\n4 model.eval ()\n5 model.to(device)\n6\n7 test_sample = next(iter(val_ds))\n8 test_sample = {task: test_sample[task ].",
+            "id": "68"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:8:3"
+            },
+            "page_content": "unsqueeze (0).to(device) for task in test_sample\n.keys ()}\n9\n10 with\ntorch.no_grad ():\n11\noutput = model(test_sample[\u2019image \u2019])\n12 # output: output[\u2019depth \u2019], output[\u2019sematic \u2019]\n8\n",
+            "id": "69"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:9:0"
+            },
+            "page_content": "AI VIETNAM\naivietnam.edu.vn\nPh\u1ea7n 3.",
+            "id": "70"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:9:1"
+            },
+            "page_content": "C\u00e2u h\u1ecfi tr\u1eafc nghi\u1ec7m\nC\u00e2u h\u1ecfi 1 H\u1ecdc \u0111a t\u00e1c v\u1ee5(Multi-Task Learning) l\u00e0 g\u00ec? a) H\u1ecdc c\u00e1ch th\u1ef1c hi\u1ec7n nhi\u1ec1u t\u00e1c v\u1ee5kh\u00e1c nhau m\u1ed9t c\u00e1ch \u0111\u1ed9c l\u1eadp\nb) H\u1ecdc c\u00e1ch th\u1ef1c hi\u1ec7n nhi\u1ec1u t\u00e1c v\u1ee5c\u00f9ng m\u1ed9t l\u00fac\nc) H\u1ecdc c\u00e1ch th\u1ef1c hi\u1ec7n m\u1ed9t t\u00e1c v\u1ee5duy nh\u1ea5t\nd) H\u1ecdc c\u00e1ch th\u1ef1c hi\u1ec7n nhi\u1ec1u t\u00e1c v\u1ee5theo th\u1ee9t\u1ef1\nC\u00e2u h\u1ecfi 2 L\u1ee3i \u00edch ch\u00ednh c\u1ee7a h\u1ecdc \u0111a t\u00e1c v\u1ee5l\u00e0 g\u00ec?",
+            "id": "71"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:9:2"
+            },
+            "page_content": "a) T\u0103ng \u0111\u1ed9ch\u00ednh x\u00e1c c\u1ee7a m\u1ed7i t\u00e1c v\u1ee5\nb) T\u0103ng kh\u1ea3n\u0103ng chuy\u1ec3n giao ki\u1ebfn th\u1ee9c gi\u1eefa c\u00e1c t\u00e1c v\u1ee5\nc) C\u1ea32 \u0111\u00e1p \u00e1n \u0111\u1ec1u \u0111\u00fang\nd) C\u1ea32 \u0111\u00e1p \u00e1n \u0111\u1ec1u sai\nC\u00e2u h\u1ecfi 3 Ph\u01b0\u01a1ng ph\u00e1p n\u00e0o sau \u0111\u00e2y kh\u00f4ng ph\u1ea3i l\u00e0 ph\u01b0\u01a1ng ph\u00e1p h\u1ecdc \u0111a t\u00e1c v\u1ee5?",
+            "id": "72"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:9:3"
+            },
+            "page_content": "a) Chia s\u1ebbtham s\u1ed1\nb) Chia s\u1ebbbi\u1ec3u di\u1ec5n\nc) Chia s\u1ebbd\u1eefli\u1ec7u\nd) H\u1ecdc tu\u1ea7n t\u1ef1\nC\u00e2u h\u1ecfi 4 M\u00f4 h\u00ecnh MTL n\u00e0o sau \u0111\u00e2y t\u1eadp trung v\u00e0o tinh ch\u1ec9nh kh\u1ed1i encoder?",
+            "id": "73"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:9:4"
+            },
+            "page_content": "a) PAD-Net\nb) PAP-Net\nc) MTI-Net\nd) Cross-Stitch Networks\nC\u00e2u h\u1ecfi 5 M\u00f4 h\u00ecnh MTL n\u00e0o sau \u0111\u00e2y t\u1eadp trung v\u00e0o tinh ch\u1ec9nh kh\u1ed1i decoder?",
+            "id": "74"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:9:5"
+            },
+            "page_content": "a) PAD-Net\nb) MTAN\nc) NDDR-CNN\nd) Cross-Stitch Networks\nC\u00e2u h\u1ecfi 6 H\u00e0m loss \u0111\u1ec3hu\u1ea5n luy\u1ec7n cho b\u00e0i to\u00e1n semantic segmentation l\u00e0?",
+            "id": "75"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:9:6"
+            },
+            "page_content": "a) Pixel-wise Cross Entropy\nb) Huber Loss\nc) Recontruction Loss\nd) Contrastive Loss\nC\u00e2u h\u1ecfi 7 H\u00e0m loss \u0111\u1ec3hu\u1ea5n luy\u1ec7n cho b\u00e0i to\u00e1n depth-image prediction l\u00e0?",
+            "id": "76"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:9:7"
+            },
+            "page_content": "a) Pixel-wise Cross Entropy\nb) Huber Loss\n9\n",
+            "id": "77"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:10:0"
+            },
+            "page_content": "AI VIETNAM\naivietnam.edu.vn\nc) L1\nd) Contrastive Loss\nC\u00e2u h\u1ecfi 8 B\u1ed9d\u1eefli\u1ec7u s\u1eedd\u1ee5ng cho ph\u1ea7n th\u1ef1c nghi\u1ec7m l\u00e0? a) NYUD-V2\nb) CIFAR10\nc) CIFAR100\nd) MNIST\nC\u00e2u h\u1ecfi 9 B\u1ed9d\u1eefli\u1ec7u NYUD-V2 bao nhi\u00eau sample?",
+            "id": "78"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:10:1"
+            },
+            "page_content": "a) 499\nb) 1119\nc) 1449\nd) 1999\nC\u00e2u h\u1ecfi 10 \u0110\u1ed9\u0111o \u0111\u1ec3\u0111\u00e1nh gi\u00e1 cho b\u00e0i to\u00e1n semantic segmentation l\u00e0?",
+            "id": "79"
+        },
+        {
+            "metadata": {
+                "id": "multi-task learning.pdf:10:2"
+            },
+            "page_content": "a) IoU\nb) F-Score\nc) Recall\nd) Precision\n- H\u1ebft -\n10\n",
+            "id": "80"
+        }
+    ],
+    "ids": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80"
+    ],
+    "sources": [
+        {
+            "file_name": "multi-task learning.pdf",
+            "created_at": "2024-12-29 21:54:49"
+        }
+    ]
+}

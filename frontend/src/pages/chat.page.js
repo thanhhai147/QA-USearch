@@ -455,7 +455,7 @@ export default function ChatPage() {
                                 <h4>Uploaded Files:</h4>
                                 <ul>
                                     {metadata.map((file, index) => (
-                                        <li key={index}>{file}</li>
+                                        <li key={index}>{file?.file_name} {file?.created_at}</li>
                                     ))}
                                 </ul>
                             </div>
@@ -597,7 +597,7 @@ export default function ChatPage() {
             >
                 {
                     metadata.map((file, index) => (
-                        <Tag className="mb-2 pdf-tag" key={index}>{file}</Tag>
+                        <Tag className="mb-2 pdf-tag" key={index}>{file?.file_name}</Tag>
                     ))
                 }
             </Modal>
