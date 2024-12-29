@@ -302,6 +302,7 @@ export default function ChatPage() {
         .then((response) => response.json())
         .then((data) => {
             setMetadata(data.data);
+            console.log(data.data);
         })
         setIsModalOpen(true);
     };
@@ -448,7 +449,7 @@ export default function ChatPage() {
                                 <h4>Uploaded Files:</h4>
                                 <ul>
                                     {metadata.map((file, index) => (
-                                        <li key={index}>{file}</li>
+                                        <li key={index}>{file?.file_name} {file?.created_at}</li>
                                     ))}
                                 </ul>
                             </div>

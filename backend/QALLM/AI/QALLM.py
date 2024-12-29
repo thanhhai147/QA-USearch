@@ -12,6 +12,7 @@ from langchain_core.documents import Document
 import os
 from langchain_core.documents import Document
 import fitz 
+import datetime
 
 def load_pdf_from_memory(file_bytes, file_name):
     """
@@ -60,7 +61,12 @@ def add_files_to_usearch_from_memory(files):
     for file in files:
         file_content = file["content"]
         file_name = file["name"]
-        sources.append(file_name)
+        sources.append(
+            {
+                "file_name": file_name, 
+                "created_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+        )
         # Sử dụng PyMuPDF để tải dữ liệu từ bytes
         docs = load_pdf_from_memory(file_content, file_name)
         documents.extend(docs)
@@ -106,9 +112,14 @@ def add_files_to_usearch_from_memory(files):
         json.dump({"docstore": serializable_docstore, "ids": db.ids, "sources": sources}, f)
 
 def get_sources():
-    with open("metadata.json", "r") as f:
-            loaded_docstore = json.load(f)
-    sources = loaded_docstore["sources"]
+    if not os.path.exists('metadata.json'):
+        sources = []
+    else:
+        with open("metadata.json", "r") as f:
+                loaded_docstore = json.load(f)
+        sources = loaded_docstore["sources"]
+        print(sources)
+        # sources = [source["file_name"] for source in loaded_docstore["sources"]]
     return sources
                
 def query_search(query):       
