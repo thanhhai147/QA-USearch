@@ -8,9 +8,9 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ['user_id', 'user_name']
 
 class SessionAdmin(admin.ModelAdmin):
-    list_display = ('session_id', 'user_id', 'context', 'created_at', 'updated_at')
+    list_display = ('session_id', 'user_id', 'created_at', 'updated_at')
     list_filter = ['created_at', 'updated_at']
-    search_fields = ['session_id', 'user_id', 'context']
+    search_fields = ['session_id', 'user_id']
 
 class ChatAdmin(admin.ModelAdmin):
     list_display = ('chat_id', 'session_id', 'chat_position', 'user_ask', 'bot_answer', 'created_at', 'updated_at')
