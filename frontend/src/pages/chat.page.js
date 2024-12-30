@@ -316,6 +316,7 @@ export default function ChatPage() {
         .then((data) => {
             console.log(data)
             setMetadata(data.data);
+            console.log(data.data);
         })
         setIsModalOpen(true);
     };
@@ -429,11 +430,46 @@ export default function ChatPage() {
                             disabled={isLoading}
                         >
                         </Button>
-                        <Button 
-                            icon={<UploadOutlined />} 
-                            onClick={handleOpenModal}
+                        <Button icon={<UploadOutlined />} onClick={handleOpenModal}>
+                        </Button>
+
+                        <Modal
+                            title="Upload PDF Files"
+                            open={isModalOpen}
+                            onCancel={handleCloseModal}
+                            footer={[
+                                <Button key="close" onClick={handleCloseModal}>
+                                    Close
+                                </Button>,
+                            ]}
                         >
-                        </Button>                        
+                            <Upload
+                                accept=".pdf"
+                                multiple
+                                beforeUpload={handleFiles}
+                                onRemove={(file) => {
+                                    setUploadedFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+                                }}
+                                showUploadList={true}
+                            >
+                                <Button icon={<UploadOutlined />}>
+                                    Select Files
+                                </Button>
+                            </Upload>
+                            
+                            <div style={{ marginTop: 20 }}>
+                                <Button onClick={handleAddFiles}>
+                                    Add to DB
+                                </Button>
+                                <h4>Uploaded Files:</h4>
+                                <ul>
+                                    {metadata.map((file, index) => (
+                                        <li key={index}>{file?.file_name} {file?.created_at}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </Modal>
+                        
                     </div>
 
                         <Dropdown 
@@ -570,7 +606,7 @@ export default function ChatPage() {
             >
                 {
                     metadata.map((file, index) => (
-                        <Tag className="mb-2 pdf-tag" key={index}>{file}</Tag>
+                        <Tag className="mb-2 pdf-tag" key={index}>{file?.file_name}</Tag>
                     ))
                 }
             </Modal>
