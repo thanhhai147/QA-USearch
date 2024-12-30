@@ -164,11 +164,10 @@ class GetChatAPIView(GenericAPIView):
                             {
                                 "chat_id": chat.chat_id,
                                 "session_id": chat.session_id.session_id,
-                                "model": chat.model,
-                                "prompting": chat.prompting,
                                 "chat_position": chat.chat_position,
                                 "user_ask": chat.user_ask,
-                                "bot_answer": chat.bot_answer
+                                "bot_answer": chat.bot_answer,
+                                "source": chat.source.split("-")
                             }
                             for chat in chat_instances.iterator()
                         ],

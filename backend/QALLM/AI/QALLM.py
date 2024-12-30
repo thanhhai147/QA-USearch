@@ -160,4 +160,4 @@ def query_search(query):
     print(response_text)
     formatted_response = f"Sources: {sources}"
     print(formatted_response)
-    return(response_text, formatted_response)
+    return(response_text, sources)

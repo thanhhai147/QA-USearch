@@ -14,9 +14,9 @@ class RAGAPI {
             }
         )
     }
-    static querySearch(query) {
+    static querySearch(query, sessionId) {
         return fetch(
-            `http://localhost:8000/query_search`, 
+            `http://localhost:8000/query-search`, 
             {
                 method: "POST",
                 mode: "cors",
@@ -24,7 +24,8 @@ class RAGAPI {
                     "Content-type": "application/json; charset=UTF-8"
                 },
                 body: JSON.stringify({
-                    query: query
+                    query: query,
+                    session_id: sessionId
                 })
             }
         )
@@ -40,6 +41,15 @@ class RAGAPI {
         )
     }
 
+    static getSource(chatId) {
+        return fetch(
+            `http://localhost:8000/get-source?chat_id=${chatId}`, 
+            {
+                method: "GET",
+                mode: "cors"
+            }
+        )
+    }
 }
 
 export default RAGAPI

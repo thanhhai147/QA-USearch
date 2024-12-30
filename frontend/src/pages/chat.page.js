@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Button, Input, Menu, Dropdown, Popconfirm, Modal, Spin, Upload, Tag } from "antd"
+import { Button, Input, Menu, Dropdown, Popconfirm, Modal, Spin, Upload, Timeline, Tag } from "antd"
 import { MenuOutlined, UserOutlined, DownOutlined, MinusCircleOutlined, EditOutlined, FormOutlined, UploadOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from '../context/authentication.context'
@@ -20,18 +20,17 @@ export default function ChatPage() {
     const [isFirstMessageSent, setIsFirstMessageSent] = useState(false)
     const [editingSessionId, setEditingSessionId] = useState(null)
     const [sessionName, setSessionName] = useState("Trò chuyện mới")
-    // const [context, setContext] = useState("")
     const [message, setMessage] = useState(null) // State để lưu thông báo
     const [isSuccess, setIsSuccess] = useState(false) // State để xác định loại thông báo
-    // const [isContextModalOpen, setIsContextModalOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+    const [isDetailModalOpen, setIsDetailModalOpen] = useState(false)
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [metadata, setMetadata] = useState([]);
+    const [currentSource, setCurrentSource] = useState([])
     const { username, logout , userId } = useAuth()
     const navigate = useNavigate()
-    // const { TextArea } = Input
 
     useEffect(() => {
         handleLoadSessionHistory()
@@ -94,7 +93,6 @@ export default function ChatPage() {
                 }
                 if (sessions.length === 0 && !flag) {
                     handleCreateSession()
-                    // setIsContextModalOpen(true)
                 }
             } else {
                 setMessage("Lỗi khi truy xuất phiên: " + data.message)
@@ -125,7 +123,8 @@ export default function ChatPage() {
                         chatId: chat.chat_id,
                         chatPosition: chat.chat_position,
                         userAsk: chat.user_ask,
-                        botAnswer: chat.bot_answer
+                        botAnswer: chat.bot_answer,
+                        source: chat.source
                     })))
                 } else {
                     setMessage("Lỗi khi truy xuất trò chuyện: " + data.message)
@@ -160,7 +159,6 @@ export default function ChatPage() {
             setIsSuccess(false)
         })
         .finally(() => {
-            // setIsContextModalOpen(false)
             setIsLoading(false)
         })
     }
@@ -193,11 +191,11 @@ export default function ChatPage() {
     const handleCreateChat = () => {
                
         if (currentChat.trim()) {   
+
             setIsLoading(true)
-            RAGAPI.querySearch(currentChat.trim()) 
+            RAGAPI.querySearch(currentChat.trim(), currentSessionId) 
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 if (data.success) {
                     handleLoadChatHistory()
                     setCurrentChat("")
@@ -268,7 +266,7 @@ export default function ChatPage() {
                 setIsSuccess(true)
                 setTimeout(() => {
                     setMessage(data.message) 
-                    logout() // ================
+                    logout()
                     navigate("/login") 
                 }, 1500)
             } else {
@@ -291,6 +289,7 @@ export default function ChatPage() {
     }
 
     const handleCloseAddModal = () => {
+        setUploadedFiles([])
         setIsAddModalOpen(false)
     }
 
@@ -314,9 +313,7 @@ export default function ChatPage() {
         RAGAPI.getUploadedFiles(uploadedFiles) 
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
             setMetadata(data.data);
-            console.log(data.data);
         })
         setIsModalOpen(true);
     };
@@ -328,13 +325,15 @@ export default function ChatPage() {
     const handleFiles = (file) => {
         const isPDF = file.type === 'application/pdf';
         if (!isPDF) {
-            console.log('You can only upload PDF files!');
+            setMessage("Vui lòng chọn tải file PDF")
+            setIsSuccess(false)
             return Upload.LIST_IGNORE; // Ngăn file không hợp lệ vào danh sách
         }
 
         const isDuplicate = uploadedFiles.some((uploadedFile) => uploadedFile.name === file.name);
         if (isDuplicate) {
-            console.log('This file has already been uploaded!');
+            setMessage("File này đã tồn tại. Vui lòng chọn tải file khác")
+            setIsSuccess(false)
             return Upload.LIST_IGNORE; // Ngăn file trùng lặp vào danh sách
         }
 
@@ -350,6 +349,8 @@ export default function ChatPage() {
         return false; // Ngăn không tải lên server
     };
     const handleAddFiles = () => {
+        setIsLoading(true)
+        setIsAddModalOpen(false)
         RAGAPI.addFilesToUSearch(uploadedFiles) 
         .then((response) => response.json())
         .then((data) => {
@@ -367,8 +368,26 @@ export default function ChatPage() {
         })
         .finally(() => {
             setIsLoading(false)
+            setUploadedFiles([])
         })
     }
+
+    const convertDateTimeString = (dateTimeString) => {
+        return new Date(dateTimeString).toLocaleString('vi-VN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false, // 24-hour format
+        });
+    }
+
+    const handleCloseDetailModal = () => {
+        setIsDetailModalOpen(false)
+    }
+
     return (
         <div className="chat-page">
            
@@ -425,51 +444,12 @@ export default function ChatPage() {
                         <Button
                             className="new-chat"
                             icon={<FormOutlined />}
-                            // onClick={() => setIsContextModalOpen(true)}
                             onClick={() => handleCreateSession()}
                             disabled={isLoading}
                         >
                         </Button>
                         <Button icon={<UploadOutlined />} onClick={handleOpenModal}>
-                        </Button>
-
-                        <Modal
-                            title="Upload PDF Files"
-                            open={isModalOpen}
-                            onCancel={handleCloseModal}
-                            footer={[
-                                <Button key="close" onClick={handleCloseModal}>
-                                    Close
-                                </Button>,
-                            ]}
-                        >
-                            <Upload
-                                accept=".pdf"
-                                multiple
-                                beforeUpload={handleFiles}
-                                onRemove={(file) => {
-                                    setUploadedFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
-                                }}
-                                showUploadList={true}
-                            >
-                                <Button icon={<UploadOutlined />}>
-                                    Select Files
-                                </Button>
-                            </Upload>
-                            
-                            <div style={{ marginTop: 20 }}>
-                                <Button onClick={handleAddFiles}>
-                                    Add to DB
-                                </Button>
-                                <h4>Uploaded Files:</h4>
-                                <ul>
-                                    {metadata.map((file, index) => (
-                                        <li key={index}>{file?.file_name} {file?.created_at}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </Modal>
-                        
+                        </Button>    
                     </div>
 
                         <Dropdown 
@@ -490,14 +470,6 @@ export default function ChatPage() {
                 )}
 
                 <div className="chat-area">
-                    {/* {
-                        currentSessionId &&
-                        <div className="session-context">
-                            {
-                                sessionHistory.filter(session => session?.sessionId === currentSessionId)[0]?.context
-                            }
-                        </div>
-                    } */}
                     {
                         currentSessionId &&
                         chatHistory.filter(chat => chat?.sessionId === currentSessionId).map(chat => {
@@ -506,7 +478,14 @@ export default function ChatPage() {
                                     <div className="chat-message user-ask" key={"user-ask: " + chat.chatId}>
                                         {chat.userAsk}
                                     </div>
-                                    <div className="chat-message bot-answer" key={"bot-answer: " + chat.chatId}>
+                                    <div 
+                                        className="chat-message bot-answer" 
+                                        key={"bot-answer: " + chat.chatId}
+                                        onClick={() => {
+                                            setCurrentSource(chat?.source)
+                                            setIsDetailModalOpen(true)
+                                        }}
+                                    >
                                         {chat.botAnswer}
                                     </div>
                                 </>
@@ -524,54 +503,21 @@ export default function ChatPage() {
                         rows={1}
                         disabled={isLoading}
                     />
-                    <Button type="primary" disabled={isLoading} onClick={handleCreateChat}>
+                    <Button className="submit-button" size="large" type="primary" disabled={isLoading} onClick={handleCreateChat}>
                         Gửi
                     </Button>
                 </div>
             </div>
-
-            {/* <Modal
-                className="context-modal"
-                open={isContextModalOpen}
-                title="Tạo cuộc trò chuyện mới"
-                onCancel={() => {
-                    setSessionName(null)
-                    setIsContextModalOpen(false)
-                }}
-                footer={() => (
-                <>
-                    <Button type="primary" disabled={isLoading} onClick={handleCreateSession}>
-                        Tạo
-                    </Button>
-                </>
-                )}
-            >
-                <Input 
-                    className="input-session-name"
-                    value={sessionName}
-                    onChange={(e) => setSessionName(e.target.value)}
-                    placeholder="Nhập tên cuộc trò chuyện"
-                    disabled={isLoading}
-                />
-                <TextArea 
-                    className="input-session-context"
-                    value={context}
-                    onChange={(e) => setContext(e.target.value)}
-                    placeholder="Nhập đoạn thông tin bạn muốn đặt câu hỏi. Đoạn thông tin dài tối đa 4000 ký tự"
-                    rows={20}
-                    disabled={isLoading}
-                />
-            </Modal> */}
 
             <Modal
                 title="Tải File PDF"
                 open={isAddModalOpen}
                 onCancel={handleCloseAddModal}
                 footer={[
-                    <Button key="close" onClick={handleCloseAddModal}>
+                    <Button key="close" disabled={isLoading} onClick={handleCloseAddModal}>
                         Hủy
                     </Button>,
-                    <Button type="primary" onClick={handleAddFiles}>
+                    <Button key="add" type="primary" disabled={isLoading} onClick={handleAddFiles}>
                         Thêm vào kho lưu trữ
                     </Button>
                 ]}
@@ -583,9 +529,11 @@ export default function ChatPage() {
                     onRemove={(file) => {
                         setUploadedFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
                     }}
+                    fileList={uploadedFiles}
                     showUploadList={true}
+                    disabled={isLoading}
                 >
-                    <Button icon={<UploadOutlined />}>
+                    <Button icon={<UploadOutlined />} disabled={isLoading}>
                         Chọn File
                     </Button>
                 </Upload>
@@ -596,17 +544,39 @@ export default function ChatPage() {
                 open={isModalOpen}
                 onCancel={handleCloseModal}
                 footer={[
-                    <Button key="close" onClick={handleCloseModal}>
+                    <Button key="close" disabled={isLoading} onClick={handleCloseModal}>
                         Hủy
                     </Button>,
-                    <Button type="primary" key="add" onClick={handleOpenAddModal}>
+                    <Button type="primary" key="add" disabled={isLoading} onClick={handleOpenAddModal}>
                         Thêm
                     </Button>
                 ]}
             >
+                {   
+                    (metadata && metadata.length > 0) ?
+                    <Timeline
+                        className="mt-4" 
+                        items={
+                            metadata?.map((file, _) => ({children: `${file?.file_name} ${convertDateTimeString(file?.created_at)}`}))
+                        }
+                    /> :
+                    "Kho lưu trữ trống"
+                }
+            </Modal>
+
+            <Modal
+                title="Trích nguồn"
+                open={isDetailModalOpen}
+                onCancel={handleCloseDetailModal}
+                footer={[]}
+                width="55%"
+            >
+                <div className="mt-4"></div>
                 {
-                    metadata.map((file, index) => (
-                        <Tag className="mb-2 pdf-tag" key={index}>{file?.file_name}</Tag>
+                    currentSource?.map(source => (
+                        <Tag className="source-tag mb-2">
+                            {source}
+                        </Tag>
                     ))
                 }
             </Modal>

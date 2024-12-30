@@ -33,7 +33,7 @@
     border-radius: 15px;
     color: #000;
     width: auto;
-    max-width: 400px;
+    max-width: 800px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
     /* Thêm thuộc tính này để nội dung tự động xuống dòng */
@@ -44,7 +44,7 @@
 
 .user-ask {
     background-color: rgba(42, 122, 233, 0.326);
-    margin-right: 27%;
+    margin-right: 7%;
     margin-left: auto;
     transition: bottom 0.3s ease, margin-left 0.3s ease;
 }
@@ -52,7 +52,7 @@
 .bot-answer {
     background-color: #6fbeff;
     margin-right: auto;
-    margin-left: 27%;
+    margin-left: 7%;
     transition: bottom 0.3s ease, margin-right 0.3s ease;
 }
 .main-content.no-sidebar .chat-message {
@@ -99,8 +99,8 @@
     display: flex;
     gap: 10px;
     width: 80%;
-    max-width: 600px;
-    height: auto;
+    max-width: 800px;
+    height: 40px;
     position: absolute;
     bottom: 40px;
     transform: translateX(-50%);
@@ -149,7 +149,7 @@
 }
 
 .selected {
-    font-weight: bold;
+    font-weight: 400;
 }
 
 .chat-title-text {
@@ -184,7 +184,6 @@
 .chat-title-text {
     cursor: pointer;
     color: inherit; 
-
     white-space: nowrap; /* Ngăn không cho text xuống dòng */
     overflow: hidden; /* Ẩn phần text thừa */
     text-overflow: ellipsis; /* Thêm "..." nếu text quá dài */
@@ -224,11 +223,16 @@
     align-items: center;
 }
 
-.pdf-tag {
+.source-tag {
     border: 1px solid rgba(42, 122, 233, 1);
     background-color: rgba(111, 190, 255, 0.3);
     color: rgba(42, 122, 233, 1);
     font-size: 14px;
     font-weight: 400;
     padding: 6px;
+}
+
+.submit-button {
+    height: 40px;
+    width: 80px;
 }

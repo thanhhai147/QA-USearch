@@ -9,6 +9,7 @@ class Chat(models.Model):
     chat_position = models.IntegerField(null=False, blank=False, validators=[MinValueValidator(1)])
     user_ask = models.TextField(max_length=4000, null=False, blank=False, validators=[MinLengthValidator(1)])
     bot_answer = models.TextField(max_length=4000, null=False, blank=False, validators=[MinLengthValidator(1)])
+    source = models.TextField(max_length=4000, null=False, blank=False, validators=[MinLengthValidator(1)], default="non source")
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
     
