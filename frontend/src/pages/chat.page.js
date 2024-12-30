@@ -285,6 +285,15 @@ export default function ChatPage() {
         })
     }
 
+    const handleOpenAddModal = () => {
+        setIsModalOpen(false)
+        setIsAddModalOpen(true)
+    }
+
+    const handleCloseAddModal = () => {
+        setIsAddModalOpen(false)
+    }
+
     const accountMenu = (
         <Menu>
             <Menu.Item key="1">
@@ -445,14 +454,14 @@ export default function ChatPage() {
                 )}
 
                 <div className="chat-area">
-                    {
+                    {/* {
                         currentSessionId &&
                         <div className="session-context">
                             {
                                 sessionHistory.filter(session => session?.sessionId === currentSessionId)[0]?.context
                             }
                         </div>
-                    }
+                    } */}
                     {
                         currentSessionId &&
                         chatHistory.filter(chat => chat?.sessionId === currentSessionId).map(chat => {
@@ -521,10 +530,13 @@ export default function ChatPage() {
             <Modal
                 title="Tải File PDF"
                 open={isAddModalOpen}
-                onCancel={handleCloseModal}
+                onCancel={handleCloseAddModal}
                 footer={[
-                    <Button key="close" onClick={handleCloseModal}>
+                    <Button key="close" onClick={handleCloseAddModal}>
                         Hủy
+                    </Button>,
+                    <Button type="primary" onClick={handleAddFiles}>
+                        Thêm vào kho lưu trữ
                     </Button>
                 ]}
             >
@@ -541,12 +553,6 @@ export default function ChatPage() {
                         Chọn File
                     </Button>
                 </Upload>
-                
-                <div style={{ marginTop: 20 }}>
-                    <Button onClick={handleAddFiles}>
-                        Thêm vào kho lưu trữ
-                    </Button>
-                </div>
             </Modal>
 
             <Modal
@@ -556,6 +562,9 @@ export default function ChatPage() {
                 footer={[
                     <Button key="close" onClick={handleCloseModal}>
                         Hủy
+                    </Button>,
+                    <Button type="primary" key="add" onClick={handleOpenAddModal}>
+                        Thêm
                     </Button>
                 ]}
             >
