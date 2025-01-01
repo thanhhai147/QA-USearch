@@ -541,6 +541,7 @@ export default function ChatPage() {
 
             <Modal
                 title="Kho Lưu Trữ"
+                className="timeline-modal"
                 open={isModalOpen}
                 onCancel={handleCloseModal}
                 footer={[
@@ -551,13 +552,14 @@ export default function ChatPage() {
                         Thêm
                     </Button>
                 ]}
+                width={'40%'}
             >
                 {   
                     (metadata && metadata.length > 0) ?
                     <Timeline
                         className="mt-4" 
                         items={
-                            metadata?.map((file, _) => ({children: `${file?.file_name} ${convertDateTimeString(file?.created_at)}`}))
+                            metadata?.map((file, _) => ({children: `${file?.file_name} tải lên vào ${convertDateTimeString(file?.created_at)}`}))
                         }
                     /> :
                     "Kho lưu trữ trống"
