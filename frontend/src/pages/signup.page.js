@@ -41,7 +41,7 @@ const SignupPage = () => {
     <div className="wrapper">
       <nav className="nav">
         <div className="nav-logo">
-          <p>QA-LLM</p>
+          <p>QA-USearch</p>
         </div>
         <div className="nav-button">
           <button

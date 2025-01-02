@@ -60,7 +60,7 @@ const LoginPage = () => {
     <div className="wrapper">
       <nav className="nav">
         <div className="nav-logo">
-          <p>QA-LLM</p>
+          <p>QA-USearch</p>
         </div>
         <div className="nav-button">
           <button className="btn white-btn" id="loginBtn">
