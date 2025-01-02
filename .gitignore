@@ -1,8 +1,8 @@
 Pipfile
 Pipfile.lock
-/backend/db.sqlite3
-/backend/index.usearch
-/backend/metadata.json
+# /backend/db.sqlite3
+# /backend/index.usearch
+# /backend/metadata.json
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
